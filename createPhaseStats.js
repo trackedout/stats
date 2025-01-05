@@ -358,10 +358,13 @@ async function saveScoresToDisk() {
 async function saveTradeLogToDisk() {
     const db = client.db();
     // db.events.find({ name: 'trade-requested', 'metadata.target-scoreboard': 'do2.inventory.shards.competitive' }, { _id: 0, name: 1, player: 1, metadata: 1 }).sort({ createdAt: -1 }).toArray()
-    const trades = await db.collection("events").find(
+    var trades = await db.collection("events").find(
         {
             name: "trade-requested",
-            "metadata.target-scoreboard": "do2.inventory.shards.competitive",
+            $or: [
+                { "metadata.target-scoreboard": "do2.inventory.shards.competitive" },
+                { "metadata.source-scoreboard": "competitive-do2.lifetime.escaped.tomes" }
+            ],
             createdAt: {
                 $gte: new Date("2024-12-07T16:00:00.000Z"),
             }
@@ -370,9 +373,22 @@ async function saveTradeLogToDisk() {
     ).sort({ createdAt: -1 }).toArray();
 
     trades = trades.map(trade => {
+        var phase = -1;
+        if (trade.createdAt >= new Date("2024-12-07T16:00:00.000Z") && trade.createdAt < new Date("2024-12-21T15:00:00.000Z")) {
+            phase = 1;
+        } else if (trade.createdAt < new Date("2025-01-04T14:30:00.000Z")) {
+            phase = 2;
+        } else if (trade.createdAt >= new Date("2025-01-04T14:30:00.000Z")) {
+            phase = 3;
+        }
+
+        if (phase === -1) {
+            console.log("Invalid phase", trade);
+        }
+
         return {
             ...trade,
-            phase: trade.createdAt < new Date("2024-12-21T15:00:00.000Z") ? 1 : 2,
+            phase,
         }
     });
 

@@ -65,27 +65,20 @@
   | group_by(.player)
   | map(.[0].player as $player | {
       (.[0].player): {
-        trades: map(.metadata + { createdAt }) | sort_by(.createdAt),
+        trades: map(.metadata + { createdAt, phase }) | sort_by(.createdAt),
         totalShardsRefunded: map(select(.metadata["source-count"] == "0") | .metadata["target-count"] | tonumber) | add,
         totalShardsAddedForPhase: map(select((.metadata["reason"] // "") | contains("Phase")) | .metadata["target-count"] | tonumber) | add,
         totalShardsBought: map(select(.metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add,
-        # convert createdAt to date and compare
         totalShardsBoughtPhase1: map(
             select(
-                .createdAt != null and
-                (.createdAt | if type == "string" then split(".")[0] | strptime("%Y-%m-%dT%H:%M:%S") | mktime else 0 end) as $createdAt
-                | $createdAt > ("2024-12-07T16:00:00" | strptime("%Y-%m-%dT%H:%M:%S") | mktime) and
-                $createdAt < ("2024-12-21T16:00:00" | strptime("%Y-%m-%dT%H:%M:%S") | mktime) and
+                .phase == 1 and
                 .metadata["source-count"] != "0"
             )
             | .metadata["target-count"] | tonumber
         ) | add,
         totalShardsBoughtPhase2: map(
             select(
-                .createdAt != null and
-                (.createdAt | if type == "string" then split(".")[0] | strptime("%Y-%m-%dT%H:%M:%S") | mktime else 0 end) as $createdAt
-                | $createdAt >= ("2024-12-21T16:00:00" | strptime("%Y-%m-%dT%H:%M:%S") | mktime) and
-                $createdAt < ("2025-01-04T15:00:00" | strptime("%Y-%m-%dT%H:%M:%S") | mktime) and
+                .phase == 2 and
                 .metadata["source-count"] != "0"
             )
             | .metadata["target-count"] | tonumber
@@ -156,7 +149,7 @@
 # ]
 
 # Now group phase specific data into sub-objects
-| map({
+| map(. + {
     player: .player,
     phase1: (.phase1 + {
       compRuns: .phase1CompRuns,
@@ -182,4 +175,5 @@
     }),
     tradeLog: .tradeLog,
   })
+| map(del(.phase1CompRuns, .phase2CompRuns, .phase1PracRuns, .phase2PracRuns, .phase1RunsAllModes, .phase2RunsAllModes, .tomesSubmittedPhase1, .tomesSubmittedPhase2, .shardsAddedByOperator, .shardsAddedForPhase, .shardsWithoutRuns))
 | map(del(.tradeLog.trades))

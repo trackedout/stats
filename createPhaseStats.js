@@ -325,7 +325,7 @@ async function main() {
         await client.connect();
 
         // Use console arg to determine whether to run these
-        if (process.argv.length > 2 && process.argv[2] === "--create-phase-stats") {
+        if (process.argv.length > 2 && process.argv[2] === "--create-collections") {
             await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsAllPhases");
             await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2024-12-21T15:00:00.000Z"), "playerStatsPhase1");
             await createPhaseStats(new Date("2024-12-21T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsPhase2");
@@ -368,6 +368,13 @@ async function saveTradeLogToDisk() {
         },
         { _id: 0, name: 1, player: 1, metadata: 1 }
     ).sort({ createdAt: -1 }).toArray();
+
+    trades = trades.map(trade => {
+        return {
+            ...trade,
+            phase: trade.createdAt < new Date("2024-12-21T15:00:00.000Z") ? 1 : 2,
+        }
+    });
 
     fs.writeFileSync("output/compShardsTradeLog.json", JSON.stringify(trades, null, 4));
     console.log(`Wrote ${trades.length} trade logs to disk`);

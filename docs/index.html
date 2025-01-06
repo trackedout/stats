@@ -199,7 +199,7 @@
         document.getElementById('search').addEventListener('input', filterPlayers);
         document.getElementById('sort').addEventListener('change', filterPlayers);
 
-        fetch('stats.json')
+        fetch('data/stats.json')
             .then(response => response.json())
             .then(data => {
                 playersData.push(...data);

@@ -95,11 +95,16 @@
         let allDetailsVisible = false;
 
         function toggleAllDetails() {
+            allDetailsVisible = !allDetailsVisible;
+            localStorage.setItem('allDetailsVisible', allDetailsVisible);
+            applyDetailsToggle();
+        }
+
+        function applyDetailsToggle() {
             const details = document.querySelectorAll('[id^="phase1-details-"], [id^="phase2-details-"]');
             details.forEach(element => {
                 element.style.display = allDetailsVisible ? "none" : "block";
             });
-            allDetailsVisible = !allDetailsVisible;
         }
 
         const playersData = [];
@@ -121,18 +126,19 @@
                             <p>Total Practice Runs: ${playerData.totalPracRuns}</p>
                             <p>Total Competitive Runs: ${playerData.totalCompRuns}</p>
                             <p>Total Runs (All Modes): ${playerData.totalRunsAllModes}</p>
-                            <br/>
-                            <p>Remaining Shards: ${playerData.remainingShards}</p>
                         </div>
+
                         ${[1, 2].map(phase => `
                         <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
                             <h3 class="text-xl font-semibold">Phase ${phase}</h3>
+                            <p>Practice Runs: ${playerData[`phase${phase}`]?.pracRuns ?? 0}</p>
+                            <p>Competitive Runs: ${playerData[`phase${phase}`]?.compRuns ?? 0}</p>
                             <p>Total Runs: ${playerData[`phase${phase}`]?.totalRuns ?? 0}</p>
-                            <p>Win Rate: ${((playerData[`phase${phase}`]?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
                             <br/>
                             <button onclick="toggleDetails('phase${phase}-details-${playerData.player}')">(click to show more details)</button>
                             <div id="phase${phase}-details-${playerData.player}" style="display:block; border:none;">
                                 <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
+
                                     ${['practice', 'competitive'].map(type => `
                                     <div>
                                         <h4 class="text-lg font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
@@ -144,14 +150,21 @@
                                         <br/>
                                         <p>Wins: ${playerData[`phase${phase}`]?.[type]?.wins ?? 0}</p>
                                         <p>Losses: ${playerData[`phase${phase}`]?.[type]?.losses ?? 0}</p>
-                                        <br/>
                                         <p>Total Runs: ${playerData[`phase${phase}`]?.[type]?.total ?? 0}</p>
+                                        ${ (type === 'competitive') ?
+                                            `<p>Win Rate: ${((playerData[`phase${phase}`]?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
+                                            <br/>
+                                            <p>Tomes Submitted: ${playerData[`phase${phase}`]?.tomesSubmitted ?? 0}</p>`
+                                            : '<br/>' }
+                                        <br/>
                                     </div>
                                     `).join('')}
+
                                 </div>
                             </div>
                         </div>
                         `).join('')}
+
                     </div>
                 `;
                 playersContainer.appendChild(playerCard);
@@ -191,29 +204,29 @@
             .then(data => {
                 playersData.push(...data);
                 renderPlayers(playersData);
-                // Reapply search and sort values
+
+                // Re-apply search and sort values
                 document.getElementById('search').value = localStorage.getItem('searchValue') || '';
-                document.getElementById('sort').value = localStorage.getItem('sortValue') || 'name';
+                document.getElementById('sort').value = localStorage.getItem('sortValue') || 'totalRuns';
                 filterPlayers();
-                // Reapply toggle state
+
+                // Re-apply toggle state
                 allDetailsVisible = localStorage.getItem('allDetailsVisible') === 'true';
-                toggleAllDetails();
+                applyDetailsToggle();
             })
             .catch(error => console.error('Error loading JSON:', error));
 
         // Save search and sort values on change
         document.getElementById('search').addEventListener('input', () => {
             localStorage.setItem('searchValue', document.getElementById('search').value);
+            applyDetailsToggle();
         });
         document.getElementById('sort').addEventListener('change', () => {
             localStorage.setItem('sortValue', document.getElementById('sort').value);
-        });
-
-        // Save toggle state on change
-        document.querySelector('.toggle-button').addEventListener('click', () => {
-            localStorage.setItem('allDetailsVisible', allDetailsVisible);
+            applyDetailsToggle();
         });
     </script>
+
 </body>
 </html>
 

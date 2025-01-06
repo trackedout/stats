@@ -75,8 +75,8 @@
         shardsAddedForPhase2: ((map(select((.metadata["reason"] // "") | contains("Phase")) | select(.phase == 2) | .metadata["target-count"] | tonumber) | add) // 0),
         totalShardsAddedForPhaseStarts: ((map(select((.metadata["reason"] // "") | contains("Phase")) | .metadata["target-count"] | tonumber) | add) // 0),
 
-        tomesSubmittedPhase1: ((map(select((.phase == 1) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["target-count"] | tonumber) | add) // 0),
-        tomesSubmittedPhase2: ((map(select((.phase == 2) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["target-count"] | tonumber) | add) // 0),
+        tomesSubmittedPhase1: ((map(select((.phase == 1) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["source-count"] | tonumber) | add) // 0),
+        tomesSubmittedPhase2: ((map(select((.phase == 2) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["source-count"] | tonumber) | add) // 0),
 
         shardsBoughtPhase1: ((map(select(.phase == 1 and .metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),
         shardsBoughtPhase2: ((map(select(.phase == 2 and .metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),

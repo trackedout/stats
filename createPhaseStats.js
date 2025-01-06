@@ -369,7 +369,7 @@ async function saveTradeLogToDisk() {
                 $gte: new Date("2024-12-07T16:00:00.000Z"),
             }
         },
-        { _id: 0, name: 1, player: 1, metadata: 1 }
+        { _id: 0, name: 1, player: 1, metadata: 1, createdAt: 1 }
     ).sort({ createdAt: -1 }).toArray();
 
     trades = trades.map(trade => {

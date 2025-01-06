@@ -181,5 +181,4 @@
     tradeLog: .tradeLog,
   })
 | map(del(.phase1CompRuns, .phase2CompRuns, .phase1PracRuns, .phase2PracRuns, .phase1RunsAllModes, .phase2RunsAllModes, .tomesSubmittedPhase1, .tomesSubmittedPhase2, .shardsAddedByOperator, .shardsAddedForPhase, .shardsWithoutRuns))
-| map(del(.tradeLog.trades))
-| map(del(.phase1.practice, .phase1.competitive, .phase2.practice, .phase2.competitive))
+# | map(del(.tradeLog.trades))

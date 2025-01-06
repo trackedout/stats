@@ -62,6 +62,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-900 text-gray-100 transition-colors duration-300 dark-mode">
     <button class="toggle-button" onclick="toggleAllDetails()">Toggle Detail Sections</button>
     <div class="container mx-auto p-5">
@@ -120,75 +121,37 @@
                             <p>Total Practice Runs: ${playerData.totalPracRuns}</p>
                             <p>Total Competitive Runs: ${playerData.totalCompRuns}</p>
                             <p>Total Runs (All Modes): ${playerData.totalRunsAllModes}</p>
+                            <br/>
                             <p>Remaining Shards: ${playerData.remainingShards}</p>
                         </div>
-
+                        ${[1, 2].map(phase => `
                         <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                            <h3 class="text-xl font-semibold">Phase 1</h3>
-                            <p>Total Runs: ${playerData.phase1?.totalRuns ?? 0}</p>
-                            <p>Win Rate: ${((playerData.phase1?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
-                            <button onclick="toggleDetails('phase1-details-${playerData.player}')">(click to show more details)</button>
-                            <div id="phase1-details-${playerData.player}" style="display:block; border:none;">
+                            <h3 class="text-xl font-semibold">Phase ${phase}</h3>
+                            <p>Total Runs: ${playerData[`phase${phase}`]?.totalRuns ?? 0}</p>
+                            <p>Win Rate: ${((playerData[`phase${phase}`]?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
+                            <br/>
+                            <button onclick="toggleDetails('phase${phase}-details-${playerData.player}')">(click to show more details)</button>
+                            <div id="phase${phase}-details-${playerData.player}" style="display:block; border:none;">
                                 <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
+                                    ${['practice', 'competitive'].map(type => `
                                     <div>
-                                        <h4 class="text-lg font-semibold">Practice</h4>
-                                        <p>Total: ${playerData.phase1?.practice?.total ?? 0}</p>
-                                        <p>Easy: ${playerData.phase1?.practice?.easy ?? 0}</p>
-                                        <p>Medium: ${playerData.phase1?.practice?.medium ?? 0}</p>
-                                        <p>Hard: ${playerData.phase1?.practice?.hard ?? 0}</p>
-                                        <p>Deadly: ${playerData.phase1?.practice?.deadly ?? 0}</p>
-                                        <p>Deep Frost: ${playerData.phase1?.practice?.deepFrost ?? 0}</p>
-                                        <p>Wins: ${playerData.phase1?.practice?.wins ?? 0}</p>
-                                        <p>Losses: ${playerData.phase1?.practice?.losses ?? 0}</p>
+                                        <h4 class="text-lg font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
+                                        <p>Easy Runs: ${playerData[`phase${phase}`]?.[type]?.easy ?? 0}</p>
+                                        <p>Medium Runs: ${playerData[`phase${phase}`]?.[type]?.medium ?? 0}</p>
+                                        <p>Hard Runs: ${playerData[`phase${phase}`]?.[type]?.hard ?? 0}</p>
+                                        <p>Deadly Runs: ${playerData[`phase${phase}`]?.[type]?.deadly ?? 0}</p>
+                                        <p>DeepFrost Runs: ${playerData[`phase${phase}`]?.[type]?.deepFrost ?? 0}</p>
+                                        <br/>
+                                        <p>Wins: ${playerData[`phase${phase}`]?.[type]?.wins ?? 0}</p>
+                                        <p>Losses: ${playerData[`phase${phase}`]?.[type]?.losses ?? 0}</p>
+                                        <br/>
+                                        <p>Total Runs: ${playerData[`phase${phase}`]?.[type]?.total ?? 0}</p>
                                     </div>
-                                    <div>
-                                        <h4 class="text-lg font-semibold">Competitive</h4>
-                                        <p>Total: ${playerData.phase1?.competitive?.total ?? 0}</p>
-                                        <p>Easy: ${playerData.phase1?.competitive?.easy ?? 0}</p>
-                                        <p>Medium: ${playerData.phase1?.competitive?.medium ?? 0}</p>
-                                        <p>Hard: ${playerData.phase1?.competitive?.hard ?? 0}</p>
-                                        <p>Deadly: ${playerData.phase1?.competitive?.deadly ?? 0}</p>
-                                        <p>Deep Frost: ${playerData.phase1?.competitive?.deepFrost ?? 0}</p>
-                                        <p>Wins: ${playerData.phase1?.competitive?.wins ?? 0}</p>
-                                        <p>Losses: ${playerData.phase1?.competitive?.losses ?? 0}</p>
-                                    </div>
+                                    `).join('')}
                                 </div>
                             </div>
                         </div>
-
-                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                            <h3 class="text-xl font-semibold">Phase 2</h3>
-                            <p>Total Runs: ${playerData.phase2?.totalRuns ?? 0}</p>
-                            <p>Win Rate: ${((playerData.phase2?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
-                            <button onclick="toggleDetails('phase2-details-${playerData.player}')">(click to show more details)</button>
-                            <div id="phase2-details-${playerData.player}" style="display:block; border:none;">
-                                <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
-                                    <div>
-                                        <h4 class="text-lg font-semibold">Practice</h4>
-                                        <p>Total: ${playerData.phase2?.practice?.total ?? 0}</p>
-                                        <p>Easy: ${playerData.phase2?.practice?.easy ?? 0}</p>
-                                        <p>Medium: ${playerData.phase2?.practice?.medium ?? 0}</p>
-                                        <p>Hard: ${playerData.phase2?.practice?.hard ?? 0}</p>
-                                        <p>Deadly: ${playerData.phase2?.practice?.deadly ?? 0}</p>
-                                        <p>Deep Frost: ${playerData.phase2?.practice?.deepFrost ?? 0}</p>
-                                        <p>Wins: ${playerData.phase2?.practice?.wins ?? 0}</p>
-                                        <p>Losses: ${playerData.phase2?.practice?.losses ?? 0}</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-lg font-semibold">Competitive</h4>
-                                        <p>Total: ${playerData.phase2?.competitive?.total ?? 0}</p>
-                                        <p>Easy: ${playerData.phase2?.competitive?.easy ?? 0}</p>
-                                        <p>Medium: ${playerData.phase2?.competitive?.medium ?? 0}</p>
-                                        <p>Hard: ${playerData.phase2?.competitive?.hard ?? 0}</p>
-                                        <p>Deadly: ${playerData.phase2?.competitive?.deadly ?? 0}</p>
-                                        <p>Deep Frost: ${playerData.phase2?.competitive?.deepFrost ?? 0}</p>
-                                        <p>Wins: ${playerData.phase2?.competitive?.wins ?? 0}</p>
-                                        <p>Losses: ${playerData.phase2?.competitive?.losses ?? 0}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        `).join('')}
                     </div>
                 `;
                 playersContainer.appendChild(playerCard);

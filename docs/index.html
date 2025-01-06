@@ -72,7 +72,8 @@
             <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
                 <option value="name">Sort by Name</option>
                 <option value="totalRuns">Sort by Total Runs</option>
-                <option value="winRate">Sort by Win Rate</option>
+                <option value="winRate1">Sort by Win Rate (Phase 1)</option>
+                <option value="winRate2">Sort by Win Rate (Phase 2)</option>
             </select>
         </div>
         <div id="players" class="grid gap-5"></div>
@@ -187,8 +188,10 @@
 
             if (sortValue === 'totalRuns') {
                 filteredData.sort((a, b) => b.totalRunsAllModes - a.totalRunsAllModes);
-            } else if (sortValue === 'winRate') {
+            } else if (sortValue === 'winRate1') {
                 filteredData.sort((a, b) => b.phase1.compWinRate - a.phase1.compWinRate);
+            } else if (sortValue === 'winRate2') {
+                filteredData.sort((a, b) => b.phase2.compWinRate - a.phase2.compWinRate);
             } else {
                 filteredData.sort((a, b) => a.player.localeCompare(b.player));
             }

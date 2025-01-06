@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Stats</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color, #121212);
+            color: var(--text-color, #e0e0e0);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: var(--heading-color, #ffffff);
+        }
+        /* .player-card {
+            background: var(--card-background, #1e1e1e);
+            margin: 10px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        } */
+        .player-card h2 {
+            margin-top: 0;
+        }
+        .stats {
+            display: grid;
+        }
+        .stats div {
+            background: var(--stat-background, #2c2c2c);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--stat-border, #444);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--button-background, #fff);
+            color: var(--button-color, #333);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode .toggle-button {
+            --button-background: #333;
+            --button-color: #fff;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 transition-colors duration-300 dark-mode">
+    <button class="toggle-button" onclick="toggleAllDetails()">Toggle Detail Sections</button>
+    <div class="container mx-auto p-5">
+        <h1 class="text-3xl font-bold text-center mb-5">Player Stats</h1>
+        <div class="flex justify-between mb-5">
+            <input type="text" id="search" placeholder="Search players..." class="p-2 rounded-md bg-gray-800 text-white">
+            <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
+                <option value="name">Sort by Name</option>
+                <option value="totalRuns">Sort by Total Runs</option>
+                <option value="winRate">Sort by Win Rate</option>
+            </select>
+        </div>
+        <div id="players" class="grid gap-5"></div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function toggleDetails(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+
+        let allDetailsVisible = false;
+
+        function toggleAllDetails() {
+            const details = document.querySelectorAll('[id^="phase1-details-"], [id^="phase2-details-"]');
+            details.forEach(element => {
+                element.style.display = allDetailsVisible ? "none" : "block";
+            });
+            allDetailsVisible = !allDetailsVisible;
+        }
+
+        const playersData = [];
+
+        function renderPlayers(data) {
+            const playersContainer = document.getElementById('players');
+            playersContainer.innerHTML = '';
+
+            data.forEach(playerData => {
+                const playerCard = document.createElement('div');
+                playerCard.className =
+                    "bg-gray-800 rounded-xl shadow-xl p-6 mb-6 transition transform";
+
+                playerCard.innerHTML = `
+                    <h2 class="text-2xl font-bold mb-3">${playerData.player}</h2>
+                    <div class="stats grid gap-3 mt-4">
+                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                            <h3 class="text-xl font-semibold">Overall</h3>
+                            <p>Total Practice Runs: ${playerData.totalPracRuns}</p>
+                            <p>Total Competitive Runs: ${playerData.totalCompRuns}</p>
+                            <p>Total Runs (All Modes): ${playerData.totalRunsAllModes}</p>
+                            <p>Remaining Shards: ${playerData.remainingShards}</p>
+                        </div>
+
+                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                            <h3 class="text-xl font-semibold">Phase 1</h3>
+                            <p>Total Runs: ${playerData.phase1?.totalRuns ?? 0}</p>
+                            <p>Win Rate: ${((playerData.phase1?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
+                            <button onclick="toggleDetails('phase1-details-${playerData.player}')">(click to show more details)</button>
+                            <div id="phase1-details-${playerData.player}" style="display:block; border:none;">
+                                <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
+                                    <div>
+                                        <h4 class="text-lg font-semibold">Practice</h4>
+                                        <p>Total: ${playerData.phase1?.practice?.total ?? 0}</p>
+                                        <p>Easy: ${playerData.phase1?.practice?.easy ?? 0}</p>
+                                        <p>Medium: ${playerData.phase1?.practice?.medium ?? 0}</p>
+                                        <p>Hard: ${playerData.phase1?.practice?.hard ?? 0}</p>
+                                        <p>Deadly: ${playerData.phase1?.practice?.deadly ?? 0}</p>
+                                        <p>Deep Frost: ${playerData.phase1?.practice?.deepFrost ?? 0}</p>
+                                        <p>Wins: ${playerData.phase1?.practice?.wins ?? 0}</p>
+                                        <p>Losses: ${playerData.phase1?.practice?.losses ?? 0}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold">Competitive</h4>
+                                        <p>Total: ${playerData.phase1?.competitive?.total ?? 0}</p>
+                                        <p>Easy: ${playerData.phase1?.competitive?.easy ?? 0}</p>
+                                        <p>Medium: ${playerData.phase1?.competitive?.medium ?? 0}</p>
+                                        <p>Hard: ${playerData.phase1?.competitive?.hard ?? 0}</p>
+                                        <p>Deadly: ${playerData.phase1?.competitive?.deadly ?? 0}</p>
+                                        <p>Deep Frost: ${playerData.phase1?.competitive?.deepFrost ?? 0}</p>
+                                        <p>Wins: ${playerData.phase1?.competitive?.wins ?? 0}</p>
+                                        <p>Losses: ${playerData.phase1?.competitive?.losses ?? 0}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                            <h3 class="text-xl font-semibold">Phase 2</h3>
+                            <p>Total Runs: ${playerData.phase2?.totalRuns ?? 0}</p>
+                            <p>Win Rate: ${((playerData.phase2?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
+                            <button onclick="toggleDetails('phase2-details-${playerData.player}')">(click to show more details)</button>
+                            <div id="phase2-details-${playerData.player}" style="display:block; border:none;">
+                                <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
+                                    <div>
+                                        <h4 class="text-lg font-semibold">Practice</h4>
+                                        <p>Total: ${playerData.phase2?.practice?.total ?? 0}</p>
+                                        <p>Easy: ${playerData.phase2?.practice?.easy ?? 0}</p>
+                                        <p>Medium: ${playerData.phase2?.practice?.medium ?? 0}</p>
+                                        <p>Hard: ${playerData.phase2?.practice?.hard ?? 0}</p>
+                                        <p>Deadly: ${playerData.phase2?.practice?.deadly ?? 0}</p>
+                                        <p>Deep Frost: ${playerData.phase2?.practice?.deepFrost ?? 0}</p>
+                                        <p>Wins: ${playerData.phase2?.practice?.wins ?? 0}</p>
+                                        <p>Losses: ${playerData.phase2?.practice?.losses ?? 0}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold">Competitive</h4>
+                                        <p>Total: ${playerData.phase2?.competitive?.total ?? 0}</p>
+                                        <p>Easy: ${playerData.phase2?.competitive?.easy ?? 0}</p>
+                                        <p>Medium: ${playerData.phase2?.competitive?.medium ?? 0}</p>
+                                        <p>Hard: ${playerData.phase2?.competitive?.hard ?? 0}</p>
+                                        <p>Deadly: ${playerData.phase2?.competitive?.deadly ?? 0}</p>
+                                        <p>Deep Frost: ${playerData.phase2?.competitive?.deepFrost ?? 0}</p>
+                                        <p>Wins: ${playerData.phase2?.competitive?.wins ?? 0}</p>
+                                        <p>Losses: ${playerData.phase2?.competitive?.losses ?? 0}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+                playersContainer.appendChild(playerCard);
+            });
+        }
+
+        function toggleExpand(button) {
+            const extraStats = button.nextElementSibling;
+            extraStats.classList.toggle('hidden');
+            button.textContent = extraStats.classList.contains('hidden') ? 'Show More' : 'Show Less';
+        }
+
+        function filterPlayers() {
+            const searchValue = document.getElementById('search').value.toLowerCase();
+            const sortValue = document.getElementById('sort').value;
+
+            let filteredData = playersData.filter(player => 
+                player.player.toLowerCase().includes(searchValue)
+            );
+
+            if (sortValue === 'totalRuns') {
+                filteredData.sort((a, b) => b.totalRunsAllModes - a.totalRunsAllModes);
+            } else if (sortValue === 'winRate') {
+                filteredData.sort((a, b) => b.phase1.compWinRate - a.phase1.compWinRate);
+            } else {
+                filteredData.sort((a, b) => a.player.localeCompare(b.player));
+            }
+
+            renderPlayers(filteredData);
+        }
+
+        document.getElementById('search').addEventListener('input', filterPlayers);
+        document.getElementById('sort').addEventListener('change', filterPlayers);
+
+        fetch('stats.json')
+            .then(response => response.json())
+            .then(data => {
+                playersData.push(...data);
+                renderPlayers(playersData);
+                // Reapply search and sort values
+                document.getElementById('search').value = localStorage.getItem('searchValue') || '';
+                document.getElementById('sort').value = localStorage.getItem('sortValue') || 'name';
+                filterPlayers();
+                // Reapply toggle state
+                allDetailsVisible = localStorage.getItem('allDetailsVisible') === 'true';
+                toggleAllDetails();
+            })
+            .catch(error => console.error('Error loading JSON:', error));
+
+        // Save search and sort values on change
+        document.getElementById('search').addEventListener('input', () => {
+            localStorage.setItem('searchValue', document.getElementById('search').value);
+        });
+        document.getElementById('sort').addEventListener('change', () => {
+            localStorage.setItem('sortValue', document.getElementById('sort').value);
+        });
+
+        // Save toggle state on change
+        document.querySelector('.toggle-button').addEventListener('click', () => {
+            localStorage.setItem('allDetailsVisible', allDetailsVisible);
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  player-stats-site:
+    build:
+      context: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro # Dev mode
+      - ./output/stats.json:/usr/share/nginx/html/stats.json:ro # Mount JSON file for dynamic updates
+    restart: unless-stopped

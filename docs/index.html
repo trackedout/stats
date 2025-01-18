@@ -12,6 +12,8 @@
     <meta name="twitter:image:alt" content="Tracked Out"/>
     <link rel="icon" href="https://cdn.trackedout.org/trackedout.png"/>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,6 +76,37 @@
     <button class="toggle-button" onclick="toggleAllDetails()">Toggle Detail Sections</button>
     <div class="container mx-auto p-5">
         <h1 class="text-3xl font-bold text-center mb-5">Tracked Out Player Stats</h1>
+        <div id="overview-banner" class="bg-gray-800 rounded-xl shadow-xl p-6 mb-6 text-center">
+            <h2 class="text-2xl font-bold mb-3">Overview</h2>
+            <script id="overview-template" type="text/x-handlebars-template">
+                <table class="table-auto w-full text-left">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Phase</th>
+                            <th class="px-4 py-2">Total Runs</th>
+                            <th class="px-4 py-2">Practice Runs</th>
+                            <th class="px-4 py-2">Competitive Runs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each phases}}
+                        <tr>
+                            <td class="border px-4 py-2">Phase {{@index}}</td>
+                            <td class="border px-4 py-2">{{total}}</td>
+                            <td class="border px-4 py-2">{{practice}}</td>
+                            <td class="border px-4 py-2">{{competitive}}</td>
+                        </tr>
+                        {{/each}}
+                        <tr>
+                            <td class="border px-4 py-2 font-bold">All Phases</td>
+                            <td class="border px-4 py-2 font-bold">{{totalAllPhases}}</td>
+                            <td class="border px-4 py-2 font-bold">{{totalAllPractice}}</td>
+                            <td class="border px-4 py-2 font-bold">{{totalAllCompetitive}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </script>
+        </div>
         <div class="flex justify-between mb-5">
             <input type="text" id="search" placeholder="Search players..." class="p-2 rounded-md bg-gray-800 text-white">
             <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
@@ -212,11 +245,44 @@
         document.getElementById('search').addEventListener('input', filterPlayers);
         document.getElementById('sort').addEventListener('change', filterPlayers);
 
+        function updateOverviewBanner(data) {
+            const totals = {
+                phase1: { total: 0, practice: 0, competitive: 0 },
+                phase2: { total: 0, practice: 0, competitive: 0 },
+                phase3: { total: 0, practice: 0, competitive: 0 }
+            };
+
+            data.forEach(playerData => {
+                [1, 2, 3].forEach(phase => {
+                    totals[`phase${phase}`].total += playerData.phases[phase - 1].totalRuns;
+                    totals[`phase${phase}`].practice += playerData.phases[phase - 1].pracRuns;
+                    totals[`phase${phase}`].competitive += playerData.phases[phase - 1].compRuns;
+                });
+            });
+
+            const context = {
+                phases: [
+                    { total: totals.phase1.total, practice: totals.phase1.practice, competitive: totals.phase1.competitive },
+                    { total: totals.phase2.total, practice: totals.phase2.practice, competitive: totals.phase2.competitive },
+                    { total: totals.phase3.total, practice: totals.phase3.practice, competitive: totals.phase3.competitive }
+                ],
+                totalAllPhases: totals.phase1.total + totals.phase2.total + totals.phase3.total,
+                totalAllPractice: totals.phase1.practice + totals.phase2.practice + totals.phase3.practice,
+                totalAllCompetitive: totals.phase1.competitive + totals.phase2.competitive + totals.phase3.competitive
+            };
+
+            const templateSource = document.getElementById('overview-template').innerHTML;
+            const template = Handlebars.compile(templateSource);
+            const html = template(context);
+            document.getElementById('overview-banner').innerHTML = html;
+        }
+
         fetch('data/stats.json')
             .then(response => response.json())
             .then(data => {
                 playersData.push(...data);
                 renderPlayers(playersData);
+                updateOverviewBanner(playersData);
 
                 // Re-apply search and sort values
                 document.getElementById('search').value = localStorage.getItem('searchValue') || '';

@@ -391,7 +391,7 @@ async function saveTradeLogToDisk() {
             phase = 1;
         } else if (trade.createdAt < new Date("2025-01-04T14:30:00.000Z")) {
             phase = 2;
-        } else if (trade.createdAt < new Date("2025-01-18T14:00:00.000Z")) {
+        } else if (trade.createdAt < new Date("2025-01-18T14:30:00.000Z")) {
             phase = 3;
         } else if (trade.createdAt >= new Date("2025-01-18T14:30:00.000Z")) {
             phase = 4;

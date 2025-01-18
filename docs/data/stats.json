@@ -5333,7 +5333,7 @@
         "compWinRate": 0.5714285714285714
       },
       {
-        "total": 2,
+        "total": 3,
         "practice": {
           "total": 0,
           "easy": 0,
@@ -5345,25 +5345,25 @@
           "losses": 0
         },
         "competitive": {
-          "total": 2,
+          "total": 3,
           "easy": 1,
           "medium": 2,
           "hard": 0,
           "deadly": 0,
           "deepFrost": 0,
-          "wins": 2,
+          "wins": 3,
           "losses": 0
         },
         "tomesSubmitted": 0,
-        "compRuns": 2,
+        "compRuns": 3,
         "pracRuns": 0,
-        "totalRuns": 2,
+        "totalRuns": 3,
         "compWinRate": 1
       }
     ],
     "totalPracRuns": 4,
-    "totalCompRuns": 21,
-    "totalRunsAllModes": 25
+    "totalCompRuns": 22,
+    "totalRunsAllModes": 26
   },
   {
     "player": "eihan6406",

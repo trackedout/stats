@@ -32,14 +32,6 @@
             text-align: center;
             color: var(--heading-color, #ffffff);
         }
-        /* .player-card {
-            background: var(--card-background, #1e1e1e);
-            margin: 10px 0;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, box-shadow 0.3s;
-        } */
         .player-card h2 {
             margin-top: 0;
         }
@@ -91,7 +83,7 @@
                     <tbody>
                         {{#each phases}}
                         <tr>
-                            <td class="border px-4 py-2">Phase {{@index}}</td>
+                            <td class="border px-4 py-2">Phase {{inc @index}}</td>
                             <td class="border px-4 py-2">{{total}}</td>
                             <td class="border px-4 py-2">{{practice}}</td>
                             <td class="border px-4 py-2">{{competitive}}</td>
@@ -119,6 +111,69 @@
         </div>
         <div id="players" class="grid gap-5"></div>
     </div>
+
+    <script id="player-template" type="text/x-handlebars-template">
+        {{#each players}}
+        <div class="bg-gray-800 rounded-xl shadow-xl p-6 mb-6 transition transform">
+            <h2 class="text-2xl font-bold mb-3">{{player}}</h2>
+            <div class="stats grid gap-3 mt-4">
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                    <h3 class="text-xl font-semibold">Overall</h3>
+                    <p>Total Practice Runs: {{totalPracRuns}}</p>
+                    <p>Total Competitive Runs: {{totalCompRuns}}</p>
+                    <p>Total Runs (All Modes): {{totalRunsAllModes}}</p>
+                </div>
+                {{#each phases}}
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                    <h3 class="text-xl font-semibold">Phase {{inc @index}}</h3>
+                    <p>Practice Runs: {{pracRuns}}</p>
+                    <p>Competitive Runs: {{compRuns}}</p>
+                    <p>Total Runs: {{totalRuns}}</p>
+                    <br/>
+                    <button onclick="toggleDetails('phase{{inc @index}}-details-{{../player}}')">(click to show more details)</button>
+                    <div id="phase{{inc @index}}-details-{{../player}}" class="phase-details" style="display:block; border:none;">
+                        <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
+                            {{#with practice}}
+                            <div>
+                                <h4 class="text-lg font-semibold">Practice</h4>
+                                <p>Easy Runs: {{easy}}</p>
+                                <p>Medium Runs: {{medium}}</p>
+                                <p>Hard Runs: {{hard}}</p>
+                                <p>Deadly Runs: {{deadly}}</p>
+                                <p>DeepFrost Runs: {{deepFrost}}</p>
+                                <br/>
+                                <p>Wins: {{wins}}</p>
+                                <p>Losses: {{losses}}</p>
+                                <p>Total Runs: {{total}}</p>
+                                <br/>
+                            </div>
+                            {{/with}}
+                            {{#with competitive}}
+                            <div>
+                                <h4 class="text-lg font-semibold">Competitive</h4>
+                                <p>Easy Runs: {{easy}}</p>
+                                <p>Medium Runs: {{medium}}</p>
+                                <p>Hard Runs: {{hard}}</p>
+                                <p>Deadly Runs: {{deadly}}</p>
+                                <p>DeepFrost Runs: {{deepFrost}}</p>
+                                <br/>
+                                <p>Wins: {{wins}}</p>
+                                <p>Losses: {{losses}}</p>
+                                <p>Total Runs: {{total}}</p>
+                                <p>Win Rate: {{winRate ../compWinRate}}</p>
+                                <br/>
+                                <p>Tomes Submitted: {{../tomesSubmitted}}</p>
+                                <br/>
+                            </div>
+                            {{/with}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+    </script>
 
     <script>
         function toggleDarkMode() {
@@ -152,65 +207,10 @@
         const playersData = [];
 
         function renderPlayers(data) {
-            const playersContainer = document.getElementById('players');
-            playersContainer.innerHTML = '';
-
-            data.forEach(playerData => {
-                const playerCard = document.createElement('div');
-                playerCard.className =
-                    "bg-gray-800 rounded-xl shadow-xl p-6 mb-6 transition transform";
-
-                playerCard.innerHTML = `
-                    <h2 class="text-2xl font-bold mb-3">${playerData.player}</h2>
-                    <div class="stats grid gap-3 mt-4">
-                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                            <h3 class="text-xl font-semibold">Overall</h3>
-                            <p>Total Practice Runs: ${playerData.totalPracRuns}</p>
-                            <p>Total Competitive Runs: ${playerData.totalCompRuns}</p>
-                            <p>Total Runs (All Modes): ${playerData.totalRunsAllModes}</p>
-                        </div>
-
-                        ${playerData.phases.map((phase, index) => `
-                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                            <h3 class="text-xl font-semibold">Phase ${index + 1}</h3>
-                            <p>Practice Runs: ${phase.pracRuns}</p>
-                            <p>Competitive Runs: ${phase.compRuns}</p>
-                            <p>Total Runs: ${phase.totalRuns}</p>
-                            <br/>
-                            <button onclick="toggleDetails('phase${index + 1}-details-${playerData.player}')">(click to show more details)</button>
-                            <div id="phase${index + 1}-details-${playerData.player}" class="phase-details" style="display:block; border:none;">
-                                <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
-
-                                    ${['practice', 'competitive'].map(type => `
-                                    <div>
-                                        <h4 class="text-lg font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
-                                        <p>Easy Runs: ${phase[type]?.easy ?? 0}</p>
-                                        <p>Medium Runs: ${phase[type]?.medium ?? 0}</p>
-                                        <p>Hard Runs: ${phase[type]?.hard ?? 0}</p>
-                                        <p>Deadly Runs: ${phase[type]?.deadly ?? 0}</p>
-                                        <p>DeepFrost Runs: ${phase[type]?.deepFrost ?? 0}</p>
-                                        <br/>
-                                        <p>Wins: ${phase[type]?.wins ?? 0}</p>
-                                        <p>Losses: ${phase[type]?.losses ?? 0}</p>
-                                        <p>Total Runs: ${phase[type]?.total ?? 0}</p>
-                                        ${ (type === 'competitive') ?
-                                            `<p>Win Rate: ${(phase.compWinRate * 100).toFixed(2)}%</p>
-                                            <br/>
-                                            <p>Tomes Submitted: ${phase.tomesSubmitted}</p>`
-                                            : '<br/>' }
-                                        <br/>
-                                    </div>
-                                    `).join('')}
-
-                                </div>
-                            </div>
-                        </div>
-                        `).join('')}
-
-                    </div>
-                `;
-                playersContainer.appendChild(playerCard);
-            });
+            const templateSource = document.getElementById('player-template').innerHTML;
+            const template = Handlebars.compile(templateSource);
+            const html = template({ players: data });
+            document.getElementById('players').innerHTML = html;
         }
 
         function toggleExpand(button) {
@@ -276,6 +276,14 @@
             const html = template(context);
             document.getElementById('overview-banner').innerHTML = html;
         }
+
+        Handlebars.registerHelper('inc', function(value) {
+            return parseInt(value) + 1;
+        });
+
+        Handlebars.registerHelper('winRate', function(value) {
+            return parseInt(value * 100) + '%';
+        });
 
         fetch('data/stats.json')
             .then(response => response.json())

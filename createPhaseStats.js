@@ -326,13 +326,15 @@ async function main() {
 
         // Use console arg to determine whether to run these
         if (process.argv.length > 2 && process.argv[2] === "--create-collections") {
-            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsAllPhases");
+            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-01-18T15:00:00.000Z"), "playerStatsAllPhases");
             await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2024-12-21T15:00:00.000Z"), "playerStatsPhase1");
             await createPhaseStats(new Date("2024-12-21T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsPhase2");
+            await createPhaseStats(new Date("2025-01-04T16:00:00.000Z"), new Date("2025-01-18T15:00:00.000Z"), "playerStatsPhase3");
         }
 
         await writePlayerStatsToDisk();
         await saveScoresToDisk();
+        await saveEmbersToDisk();
         await saveTradeLogToDisk();
 
         console.log("Phase stats collections created successfully");
@@ -353,6 +355,17 @@ async function saveScoresToDisk() {
 
     fs.writeFileSync("output/compShardsAllPlayers.json", JSON.stringify(scores, null, 4));
     console.log(`Wrote ${scores.length} competitive shard scores to disk`);
+}
+
+async function saveEmbersToDisk() {
+    const db = client.db();
+    const scores = await db.collection("scores").find(
+        { key: "competitive-do2.lifetime.escaped.embers" },
+        { _id: 0, player: 1, key: 1, value: 1 }
+    ).sort({ value: 1 }).toArray();
+
+    fs.writeFileSync("output/compEmbersAllPlayers.json", JSON.stringify(scores, null, 4));
+    console.log(`Wrote ${scores.length} competitive escaped ember scores to disk`);
 }
 
 async function saveTradeLogToDisk() {
@@ -378,8 +391,10 @@ async function saveTradeLogToDisk() {
             phase = 1;
         } else if (trade.createdAt < new Date("2025-01-04T14:30:00.000Z")) {
             phase = 2;
-        } else if (trade.createdAt >= new Date("2025-01-04T14:30:00.000Z")) {
+        } else if (trade.createdAt < new Date("2025-01-18T14:00:00.000Z")) {
             phase = 3;
+        } else if (trade.createdAt >= new Date("2025-01-18T14:30:00.000Z")) {
+            phase = 4;
         }
 
         if (phase === -1) {

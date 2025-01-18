@@ -85,10 +85,11 @@
     })
   | add) as $tradeLogs
 | (.[3] | map({ key: .player, value: .value }) | from_entries) as $allPlayers   # compShardsAllPlayers.json
+| (.[4] | map({ key: .player, value: .value }) | from_entries) as $emberScores  # compEmbersAllPlayers.json
 | ($allPlayers | keys | unique) as $players
 | $players | map({
     player: .,
-    tradeLog: ($tradeLogs[.]),
+    tradeLog: ($tradeLogs[.] // null),
     phase1: ($p1[.]?.stats),
     phase2: ($p2[.]?.stats),
     phase1CompRuns: ($p1[.]?.stats?.competitive?.total // 0),
@@ -98,7 +99,9 @@
     totalPracRuns: 0, # just for field ordering
     totalCompRuns: 0, # just for field ordering
     totalRunsAllModes: 0, # just for field ordering
+    totalLifetimeEmbers: ($emberScores[.] // 0),
   } | del(.stats, ._id))
+| map(select(.tradeLog != null))
 | map(. + {
     phase1RunsAllModes: (.phase1CompRuns + .phase1PracRuns),
     phase2RunsAllModes: (.phase2CompRuns + .phase2PracRuns),

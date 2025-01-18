@@ -99,7 +99,7 @@
     totalPracRuns: 0, # just for field ordering
     totalCompRuns: 0, # just for field ordering
     totalRunsAllModes: 0, # just for field ordering
-    totalLifetimeEmbers: ($emberScores[.] // 0),
+    totalEscapedEmbers: ($emberScores[.] // 0),
   } | del(.stats, ._id))
 | map(select(.tradeLog != null))
 | map(. + {
@@ -155,6 +155,16 @@
 #   }
 # ]
 
+| map(
+  .potentialEmberValue =
+    if .totalCompRuns == 0 then
+      0
+    else
+      # Calculate the base value first
+      (.totalEscapedEmbers + ((.totalEscapedEmbers / .totalCompRuns) * .remainingShards))
+    end
+)
+
 # Now group phase specific data into sub-objects
 | map(. + {
     player: .player,
@@ -182,6 +192,23 @@
     }),
     totalShardsWithoutRuns: .totalShardsWithoutRuns,
     tradeLog: .tradeLog,
-  })
+  }) as $allPlayerData
+
+| map(select(.totalCompRuns > 0 and .potentialEmberValue > 70) | .potentialEmberValue) as $allPlayerEmberValues
+| $allPlayerData
+
+# Calculate ember allocations using =ROUND(17-(E{player}-MIN(E:E))/(MAX(E:E)-MIN(E:E))*8), where E is potentialEmberValue
+| map(
+  .shardsToAllocatePreCap = if (.totalCompRuns == 0) then
+    0
+  else
+    (17 - (.potentialEmberValue - ($allPlayerEmberValues | min)) / (($allPlayerEmberValues | max) - ($allPlayerEmberValues | min)) * 8)
+  end
+)
+# Now cap the shards so that the player doesn't end up with more than 34 shards. formula is =MIN(34, remainingShards+shardsToAllocatePreCap)-remainingShards
+| map(
+  .shardsToAllocate = ((([34, ((.remainingShards + .shardsToAllocatePreCap))] | min) - .remainingShards) | round)
+)
+
 | map(del(.phase1CompRuns, .phase2CompRuns, .phase1PracRuns, .phase2PracRuns, .phase1RunsAllModes, .phase2RunsAllModes, .tomesSubmittedPhase1, .tomesSubmittedPhase2, .shardsAddedByOperator, .shardsAddedForPhase, .shardsWithoutRuns))
 # | map(del(.tradeLog.trades))

@@ -14,5 +14,6 @@ map(del(
   .totalShardsAddedByOperator,
   .remainingShards,
   .shardsExcludingTrades,
-  .totalLifetimeEmbers
+  .totalEscapedEmbers,
+  .potentialEmberValue
 ))

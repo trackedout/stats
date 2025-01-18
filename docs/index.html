@@ -81,6 +81,7 @@
                 <option value="totalRuns">Sort by Total Runs</option>
                 <option value="winRate1">Sort by Win Rate (Phase 1)</option>
                 <option value="winRate2">Sort by Win Rate (Phase 2)</option>
+                <option value="winRate3">Sort by Win Rate (Phase 3)</option>
             </select>
         </div>
         <div id="players" class="grid gap-5"></div>
@@ -109,7 +110,7 @@
         }
 
         function applyDetailsToggle() {
-            const details = document.querySelectorAll('[id^="phase1-details-"], [id^="phase2-details-"]');
+            const details = document.querySelectorAll('[class="phase-details"]');
             details.forEach(element => {
                 element.style.display = allDetailsVisible ? "block" : "none";
             });
@@ -136,33 +137,33 @@
                             <p>Total Runs (All Modes): ${playerData.totalRunsAllModes}</p>
                         </div>
 
-                        ${[1, 2].map(phase => `
+                        ${playerData.phases.map((phase, index) => `
                         <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
-                            <h3 class="text-xl font-semibold">Phase ${phase}</h3>
-                            <p>Practice Runs: ${playerData[`phase${phase}`]?.pracRuns ?? 0}</p>
-                            <p>Competitive Runs: ${playerData[`phase${phase}`]?.compRuns ?? 0}</p>
-                            <p>Total Runs: ${playerData[`phase${phase}`]?.totalRuns ?? 0}</p>
+                            <h3 class="text-xl font-semibold">Phase ${index + 1}</h3>
+                            <p>Practice Runs: ${phase.pracRuns}</p>
+                            <p>Competitive Runs: ${phase.compRuns}</p>
+                            <p>Total Runs: ${phase.totalRuns}</p>
                             <br/>
-                            <button onclick="toggleDetails('phase${phase}-details-${playerData.player}')">(click to show more details)</button>
-                            <div id="phase${phase}-details-${playerData.player}" style="display:block; border:none;">
+                            <button onclick="toggleDetails('phase${index + 1}-details-${playerData.player}')">(click to show more details)</button>
+                            <div id="phase${index + 1}-details-${playerData.player}" class="phase-details" style="display:block; border:none;">
                                 <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
 
                                     ${['practice', 'competitive'].map(type => `
                                     <div>
                                         <h4 class="text-lg font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
-                                        <p>Easy Runs: ${playerData[`phase${phase}`]?.[type]?.easy ?? 0}</p>
-                                        <p>Medium Runs: ${playerData[`phase${phase}`]?.[type]?.medium ?? 0}</p>
-                                        <p>Hard Runs: ${playerData[`phase${phase}`]?.[type]?.hard ?? 0}</p>
-                                        <p>Deadly Runs: ${playerData[`phase${phase}`]?.[type]?.deadly ?? 0}</p>
-                                        <p>DeepFrost Runs: ${playerData[`phase${phase}`]?.[type]?.deepFrost ?? 0}</p>
+                                        <p>Easy Runs: ${phase[type]?.easy ?? 0}</p>
+                                        <p>Medium Runs: ${phase[type]?.medium ?? 0}</p>
+                                        <p>Hard Runs: ${phase[type]?.hard ?? 0}</p>
+                                        <p>Deadly Runs: ${phase[type]?.deadly ?? 0}</p>
+                                        <p>DeepFrost Runs: ${phase[type]?.deepFrost ?? 0}</p>
                                         <br/>
-                                        <p>Wins: ${playerData[`phase${phase}`]?.[type]?.wins ?? 0}</p>
-                                        <p>Losses: ${playerData[`phase${phase}`]?.[type]?.losses ?? 0}</p>
-                                        <p>Total Runs: ${playerData[`phase${phase}`]?.[type]?.total ?? 0}</p>
+                                        <p>Wins: ${phase[type]?.wins ?? 0}</p>
+                                        <p>Losses: ${phase[type]?.losses ?? 0}</p>
+                                        <p>Total Runs: ${phase[type]?.total ?? 0}</p>
                                         ${ (type === 'competitive') ?
-                                            `<p>Win Rate: ${((playerData[`phase${phase}`]?.compWinRate ?? 0) * 100).toFixed(2)}%</p>
+                                            `<p>Win Rate: ${(phase.compWinRate * 100).toFixed(2)}%</p>
                                             <br/>
-                                            <p>Tomes Submitted: ${playerData[`phase${phase}`]?.tomesSubmitted ?? 0}</p>`
+                                            <p>Tomes Submitted: ${phase.tomesSubmitted}</p>`
                                             : '<br/>' }
                                         <br/>
                                     </div>
@@ -196,9 +197,11 @@
             if (sortValue === 'totalRuns') {
                 filteredData.sort((a, b) => b.totalRunsAllModes - a.totalRunsAllModes);
             } else if (sortValue === 'winRate1') {
-                filteredData.sort((a, b) => b.phase1.compWinRate - a.phase1.compWinRate);
+                filteredData.sort((a, b) => b.phases[0].compWinRate - a.phases[0].compWinRate);
             } else if (sortValue === 'winRate2') {
-                filteredData.sort((a, b) => b.phase2.compWinRate - a.phase2.compWinRate);
+                filteredData.sort((a, b) => b.phases[1].compWinRate - a.phases[1].compWinRate);
+            } else if (sortValue === 'winRate3') {
+                filteredData.sort((a, b) => b.phases[2].compWinRate - a.phases[2].compWinRate);
             } else {
                 filteredData.sort((a, b) => a.player.localeCompare(b.player));
             }

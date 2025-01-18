@@ -95,7 +95,7 @@
 | $players | map(. as $player | {
     player: $player,
     tradeLog: ($tradeLogs[$player] // {}),
-    phases: (reduce $phases[] as $phase ({}; ($phaseStats[$phase][$player]?.stats) as $playerPhaseStats | .[$phase] = {
+    phases: (reduce $phases[] as $phase ({}; ($phaseStats[$phase][$player]?.stats) as $playerPhaseStats | .[$phase] = $playerPhaseStats + {
       compRuns: ($playerPhaseStats.competitive?.total // 0),
       pracRuns: ($playerPhaseStats.practice?.total // 0),
       totalRuns: (($playerPhaseStats.competitive?.total // 0) + ($playerPhaseStats.practice?.total // 0)),

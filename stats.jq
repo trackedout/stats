@@ -58,77 +58,75 @@
 #  }
 # ]
 
-(.[0] | map({ key: .player, value: . }) | from_entries) as $p1     # playerStatsPhase1.json
-| (.[1] | map({ key: .player, value: . }) | from_entries) as $p2   # playerStatsPhase2.json
+(.[0] | map(tostring)) as $phases
+| (.[4] | map({ key: .player, value: . }) | from_entries) as $p1   # playerStatsPhase1.json
+| (.[5] | map({ key: .player, value: . }) | from_entries) as $p2   # playerStatsPhase2.json
+| (.[6] | map({ key: .player, value: . }) | from_entries) as $p3   # playerStatsPhase3.json
+| ({
+  "1": $p1,
+  "2": $p2,
+  "3": $p3
+}) as $phaseStats
 | (
-  .[2]  # compShardsTradeLog.json
+  .[1]  # compShardsTradeLog.json
   | group_by(.player)
-  | map(.[0].player as $player | {
+  | map(.[0].player as $player | . as $trades | {
       (.[0].player): {
-        trades: map(.metadata + { createdAt, phase }) | sort_by(.createdAt),
+        trades: ($trades | map(.metadata + { createdAt, phase }) | sort_by(.createdAt)),
 
-        shardsAddedByOperatorPhase1: ((map(select((.metadata["source-count"] == "0") and (.phase == 1)) | .metadata["target-count"] | tonumber) | add) // 0),
-        shardsAddedByOperatorPhase2: ((map(select((.metadata["source-count"] == "0") and (.phase == 2)) | .metadata["target-count"] | tonumber) | add) // 0),
-        totalShardsAddedByOperator: ((map(select(.metadata["source-count"] == "0") | .metadata["target-count"] | tonumber) | add) // 0),
+        phaseData: (reduce $phases[] as $phase ({}; .[$phase] = {
 
-        shardsAddedForPhase1: ((map(select((.metadata["reason"] // "") | contains("Phase")) | select(.phase == 1) | .metadata["target-count"] | tonumber) | add) // 0),
-        shardsAddedForPhase2: ((map(select((.metadata["reason"] // "") | contains("Phase")) | select(.phase == 2) | .metadata["target-count"] | tonumber) | add) // 0),
-        totalShardsAddedForPhaseStarts: ((map(select((.metadata["reason"] // "") | contains("Phase")) | .metadata["target-count"] | tonumber) | add) // 0),
+          shardsAddedByOperator: (($trades | map(select((.metadata["source-count"] == "0") and (.phase == ($phase | tonumber))) | .metadata["target-count"] | tonumber) | add) // 0),
+          shardsAddedForPhase: (($trades | map(select((.metadata["reason"] // "") | contains("Phase")) | select(.phase == ($phase | tonumber)) | .metadata["target-count"] | tonumber) | add) // 0),
 
-        tomesSubmittedPhase1: ((map(select((.phase == 1) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["source-count"] | tonumber) | add) // 0),
-        tomesSubmittedPhase2: ((map(select((.phase == 2) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["source-count"] | tonumber) | add) // 0),
+          shardsBought: (($trades | map(select(.phase == ($phase | tonumber) and .metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),
 
-        shardsBoughtPhase1: ((map(select(.phase == 1 and .metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),
-        shardsBoughtPhase2: ((map(select(.phase == 2 and .metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),
-        totalShardsBought: ((map(select(.metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),
+          tomesSubmitted: (($trades | map(select((.phase == ($phase | tonumber)) and (.metadata["source-scoreboard"] == "competitive-do2.lifetime.escaped.tomes") ) | .metadata["source-count"] | tonumber) | add) // 0)
+        })),
+
+        totalShardsAddedByOperator: (($trades | map(select(.metadata["source-count"] == "0") | .metadata["target-count"] | tonumber) | add) // 0),
+        totalShardsBought: (($trades | map(select(.metadata["source-count"] != "0") | .metadata["target-count"] | tonumber) | add) // 0),
       }
     })
   | add) as $tradeLogs
-| (.[3] | map({ key: .player, value: .value }) | from_entries) as $allPlayers   # compShardsAllPlayers.json
-| (.[4] | map({ key: .player, value: .value }) | from_entries) as $emberScores  # compEmbersAllPlayers.json
+| (.[2] | map({ key: .player, value: .value }) | from_entries) as $allPlayers   # compShardsAllPlayers.json
+| (.[3] | map({ key: .player, value: .value }) | from_entries) as $emberScores  # compEmbersAllPlayers.json
 | ($allPlayers | keys | unique) as $players
-| $players | map({
-    player: .,
-    tradeLog: ($tradeLogs[.] // null),
-    phase1: ($p1[.]?.stats),
-    phase2: ($p2[.]?.stats),
-    phase1CompRuns: ($p1[.]?.stats?.competitive?.total // 0),
-    phase2CompRuns: ($p2[.]?.stats?.competitive?.total // 0),
-    phase1PracRuns: ($p1[.]?.stats?.practice?.total // 0),
-    phase2PracRuns: ($p2[.]?.stats?.practice?.total // 0),
+| $players | map(. as $player | {
+    player: $player,
+    tradeLog: ($tradeLogs[$player] // {}),
+    phases: (reduce $phases[] as $phase ({}; ($phaseStats[$phase][$player]?.stats) as $playerPhaseStats | .[$phase] = {
+      compRuns: ($playerPhaseStats.competitive?.total // 0),
+      pracRuns: ($playerPhaseStats.practice?.total // 0),
+      totalRuns: (($playerPhaseStats.competitive?.total // 0) + ($playerPhaseStats.practice?.total // 0)),
+      tomesSubmitted: ($tradeLogs[$player].phaseData[$phase]?.tomesSubmitted // 0),
+      shardsRefunded: (($tradeLogs[$player].phaseData[$phase]?.shardsAddedByOperator // 0) - ($tradeLogs[$player].phaseData[$phase]?.shardsAddedForPhase // 0)),
+      shardsAddedForPhase: ($tradeLogs[$player].phaseData[$phase]?.shardsAddedForPhase // 0),
+      shardsBought: ($tradeLogs[$player].shardsBought[$phase] // 0),
+      compWinRate: (if ($playerPhaseStats.competitive?.wins > 0) then (($playerPhaseStats.competitive?.wins // 0) / ($playerPhaseStats.competitive?.total // 1)) else 0 end)
+    })),
     totalPracRuns: 0, # just for field ordering
     totalCompRuns: 0, # just for field ordering
     totalRunsAllModes: 0, # just for field ordering
-    totalEscapedEmbers: ($emberScores[.] // 0),
+    totalEscapedEmbers: ($emberScores[$player] // 0),
   } | del(.stats, ._id))
-| map(select(.tradeLog != null))
 | map(. + {
-    phase1RunsAllModes: (.phase1CompRuns + .phase1PracRuns),
-    phase2RunsAllModes: (.phase2CompRuns + .phase2PracRuns),
-    tomesSubmittedPhase1: (.tradeLog.tomesSubmittedPhase1 // 0),
-    tomesSubmittedPhase2: (.tradeLog.tomesSubmittedPhase2 // 0),
-  })
-| map(. + {
-    totalRunsAllModes: (.phase1RunsAllModes + .phase2RunsAllModes)
-  })
-| map(. + {
-    totalPracRuns: (.phase1PracRuns + .phase2PracRuns),
-    totalCompRuns: (.phase1CompRuns + .phase2CompRuns),
+    totalRunsAllModes: (reduce .phases[] as $phase (0; . + $phase.totalRuns)),
+    totalPracRuns: (reduce .phases[] as $phase (0; . + $phase.pracRuns)),
+    totalCompRuns: (reduce .phases[] as $phase (0; . + $phase.compRuns)),
     remainingShards: ($allPlayers[.player]),
   })
 | map(. + {
     totalShardsBought: (.tradeLog.totalShardsBought // 0),
-    totalShardsWithoutRuns: (.remainingShards + .phase1CompRuns + .phase2CompRuns),
+    totalShardsWithoutRuns: (.remainingShards + .totalCompRuns),
     tradeLog: (.tradeLog + {
-      shardsRefundedPhase1: ((.tradeLog.shardsAddedByOperatorPhase1 // 0) - (.tradeLog.shardsAddedForPhase1 // 0)),
-      shardsRefundedPhase2: ((.tradeLog.shardsAddedByOperatorPhase2 // 0) - (.tradeLog.shardsAddedForPhase2 // 0)),
+      shardsRefunded: (reduce .phases[] as $phase (0; . + $phase.shardsRefunded)),
     }),
   })
 | map(. + {
-    totalShardsAddedByOperator: (.tradeLog.shardsAddedByOperatorPhase1 + .tradeLog.shardsAddedByOperatorPhase2),
+    totalShardsAddedByOperator: (reduce .phases[] as $phase (0; . + $phase.shardsAddedForPhase)),
   })
 | map(. + {
-    # Excluding purchases, spending, and bug related operator actions
     shardsExcludingTrades: (.totalShardsWithoutRuns - .totalShardsBought - .totalShardsAddedByOperator)
   })
 
@@ -165,36 +163,11 @@
     end
 )
 
-# Now group phase specific data into sub-objects
-| map(. + {
-    player: .player,
-    phase1: (.phase1 + {
-      compRuns: .phase1CompRuns,
-      pracRuns: .phase1PracRuns,
-      totalRuns: .phase1RunsAllModes,
-      tomesSubmitted: .tomesSubmittedPhase1,
-      # shardsAddedByOperator: (.tradeLog.shardsAddedByOperatorPhase1 // 0),
-      shardsRefunded: (.tradeLog.shardsRefundedPhase1 // 0),
-      shardsAddedForPhase: (.tradeLog.shardsAddedForPhase1 // 0),
-      shardsBought: (.tradeLog.shardsBoughtPhase1 // 0),
-      compWinRate: (if .phase1.competitive.wins > 0 then ((.phase1.competitive.wins // 0) / (.phase1.competitive.total // 1)) else 0 end),
-    }),
-    phase2: (.phase2 + {
-      compRuns: .phase2CompRuns,
-      pracRuns: .phase2PracRuns,
-      totalRuns: .phase2RunsAllModes,
-      tomesSubmitted: .tomesSubmittedPhase2,
-      # shardsAddedByOperator: (.tradeLog.shardsAddedByOperatorPhase2 // 0),
-      shardsRefunded: (.tradeLog.shardsRefundedPhase2 // 0),
-      shardsAddedForPhase: (.tradeLog.shardsAddedForPhase2 // 0),
-      shardsBought: (.tradeLog.shardsBoughtPhase2 // 0),
-      compWinRate: (if .phase2.competitive.wins > 0 then ((.phase2.competitive.wins // 0) / (.phase2.competitive.total // 1)) else 0 end),
-    }),
-    totalShardsWithoutRuns: .totalShardsWithoutRuns,
-    tradeLog: .tradeLog,
-  }) as $allPlayerData
-
-| map(select(.totalCompRuns > 0 and .potentialEmberValue > 70) | .potentialEmberValue) as $allPlayerEmberValues
+| . as $allPlayerData
+# Get all potential ember values for active players
+# Find the min potential ember value cutoff using:
+# > ./join-stats.sh | jq 'map({ player, remainingShards, totalCompRuns, totalEscapedEmbers, potentialEmberValue, shardsToAllocatePreCap, shardsToAllocate } | select(.remainingShards == 0 and .potentialEmberValue > 0)) | sort_by(.potentialEmberValue) | reverse'
+| map(select(.totalCompRuns > 0 and .potentialEmberValue > 233) | .potentialEmberValue) as $allPlayerEmberValues
 | $allPlayerData
 
 # Calculate ember allocations using =ROUND(17-(E{player}-MIN(E:E))/(MAX(E:E)-MIN(E:E))*8), where E is potentialEmberValue
@@ -210,5 +183,5 @@
   .shardsToAllocate = ((([34, ((.remainingShards + .shardsToAllocatePreCap))] | min) - .remainingShards) | round)
 )
 
-| map(del(.phase1CompRuns, .phase2CompRuns, .phase1PracRuns, .phase2PracRuns, .phase1RunsAllModes, .phase2RunsAllModes, .tomesSubmittedPhase1, .tomesSubmittedPhase2, .shardsAddedByOperator, .shardsAddedForPhase, .shardsWithoutRuns))
-# | map(del(.tradeLog.trades))
+| map(del(.shardsAddedByOperator, .shardsAddedForPhase, .shardsWithoutRuns))
+| map(del(.tradeLog.phaseData))

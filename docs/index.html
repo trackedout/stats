@@ -99,15 +99,20 @@
                 </table>
             </script>
         </div>
-        <div class="flex justify-between mb-5">
-            <input type="text" id="search" placeholder="Search players..." class="p-2 rounded-md bg-gray-800 text-white">
-            <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
-                <option value="name">Sort by Name</option>
-                <option value="totalRuns">Sort by Total Runs</option>
-                <option value="winRate1">Sort by Win Rate (Phase 1)</option>
-                <option value="winRate2">Sort by Win Rate (Phase 2)</option>
-                <option value="winRate3">Sort by Win Rate (Phase 3)</option>
-            </select>
+        <div id="filter-div" class="flex justify-between mb-5">
+            <script id="filter-template" type="text/x-handlebars-template">
+                <input type="text" id="search" placeholder="Search players..." class="p-2 rounded-md bg-gray-800 text-white">
+                <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
+                    <option value="name">Sort by Name</option>
+                    <option value="totalRuns">Sort by Total Runs</option>
+                    {{#each phases}}
+                    <option value="winRate{{ inc @index }}">Sort by Win Rate (Phase {{ inc @index }})</option>
+                    {{/each}}
+                    {{#each phases}}
+                    <option value="tomesSubmitted{{ inc @index }}">Sort by Tomes Submitted (Phase {{ inc @index }})</option>
+                    {{/each}}
+                </select>
+            </script>
         </div>
         <div id="players" class="grid gap-5"></div>
     </div>
@@ -130,7 +135,9 @@
                     <p>Competitive Runs: {{compRuns}}</p>
                     <p>Total Runs: {{totalRuns}}</p>
                     <br/>
+                    {{#if totalRuns}}
                     <button onclick="toggleDetails('phase{{inc @index}}-details-{{../player}}')">(click to show more details)</button>
+                    {{/if}}
                     <div id="phase{{inc @index}}-details-{{../player}}" class="phase-details" style="display:block; border:none;">
                         <div class="grid grid-cols-2 gap-3 mt-3" style="border:none;">
                             {{#with practice}}
@@ -176,6 +183,15 @@
     </script>
 
     <script>
+
+        Handlebars.registerHelper('inc', function(value) {
+            return parseInt(value) + 1;
+        });
+
+        Handlebars.registerHelper('winRate', function(value) {
+            return parseInt(value * 100) + '%';
+        });
+
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
         }
@@ -229,12 +245,14 @@
 
             if (sortValue === 'totalRuns') {
                 filteredData.sort((a, b) => b.totalRunsAllModes - a.totalRunsAllModes);
-            } else if (sortValue === 'winRate1') {
-                filteredData.sort((a, b) => b.phases[0].compWinRate - a.phases[0].compWinRate);
-            } else if (sortValue === 'winRate2') {
-                filteredData.sort((a, b) => b.phases[1].compWinRate - a.phases[1].compWinRate);
-            } else if (sortValue === 'winRate3') {
-                filteredData.sort((a, b) => b.phases[2].compWinRate - a.phases[2].compWinRate);
+            } else if (sortValue.startsWith('winRate')) {
+                const phaseToSort = Number(sortValue.substring("winRate".length)) - 1;
+                filteredData = filteredData.filter(p => p.phases[phaseToSort]?.competitive?.total > 0);
+                filteredData.sort((a, b) => b.phases[phaseToSort].compWinRate - a.phases[phaseToSort].compWinRate);
+            } else if (sortValue.startsWith('tomesSubmitted')) {
+                const phaseToSort = Number(sortValue.substring("tomesSubmitted".length)) - 1;
+                filteredData = filteredData.filter(p => p.phases[phaseToSort]?.tomesSubmitted > 0);
+                filteredData.sort((a, b) => b.phases[phaseToSort].tomesSubmitted - a.phases[phaseToSort].tomesSubmitted);
             } else {
                 filteredData.sort((a, b) => a.player.localeCompare(b.player));
             }
@@ -242,18 +260,27 @@
             renderPlayers(filteredData);
         }
 
+        function updateFilterDiv(phases) {
+            const filterTemplate = Handlebars.compile(document.getElementById('filter-template').innerHTML);
+            const filterHtml = filterTemplate({ phases });
+            document.getElementById('filter-div').innerHTML = filterHtml;
+        }
+
+        const phases = [1, 2, 3, 4];
+        updateFilterDiv(phases);
+
         document.getElementById('search').addEventListener('input', filterPlayers);
         document.getElementById('sort').addEventListener('change', filterPlayers);
 
         function updateOverviewBanner(data) {
-            const totals = {
-                phase1: { total: 0, practice: 0, competitive: 0 },
-                phase2: { total: 0, practice: 0, competitive: 0 },
-                phase3: { total: 0, practice: 0, competitive: 0 }
-            };
+            const totals = {};
+
+            phases.forEach(phase => {
+                totals[`phase${phase}`] = { total: 0, practice: 0, competitive: 0 };
+            });
 
             data.forEach(playerData => {
-                [1, 2, 3].forEach(phase => {
+                phases.forEach(phase => {
                     totals[`phase${phase}`].total += playerData.phases[phase - 1].totalRuns;
                     totals[`phase${phase}`].practice += playerData.phases[phase - 1].pracRuns;
                     totals[`phase${phase}`].competitive += playerData.phases[phase - 1].compRuns;
@@ -261,12 +288,13 @@
             });
 
             const context = {
-                phases: [
-                    { total: totals.phase1.total, practice: totals.phase1.practice, competitive: totals.phase1.competitive },
-                    { total: totals.phase2.total, practice: totals.phase2.practice, competitive: totals.phase2.competitive },
-                    { total: totals.phase3.total, practice: totals.phase3.practice, competitive: totals.phase3.competitive }
-                ],
-                totalAllPhases: totals.phase1.total + totals.phase2.total + totals.phase3.total,
+                phases: Object.keys(totals).map(key => totals[key]),
+                // phases: [
+                //     { total: totals.phase1.total, practice: totals.phase1.practice, competitive: totals.phase1.competitive },
+                //     { total: totals.phase2.total, practice: totals.phase2.practice, competitive: totals.phase2.competitive },
+                //     { total: totals.phase3.total, practice: totals.phase3.practice, competitive: totals.phase3.competitive }
+                // ],
+                totalAllPhases: Object.keys(totals).map(key => totals[key].total).reduce((a, b) => a + b, 0),
                 totalAllPractice: totals.phase1.practice + totals.phase2.practice + totals.phase3.practice,
                 totalAllCompetitive: totals.phase1.competitive + totals.phase2.competitive + totals.phase3.competitive
             };
@@ -276,14 +304,6 @@
             const html = template(context);
             document.getElementById('overview-banner').innerHTML = html;
         }
-
-        Handlebars.registerHelper('inc', function(value) {
-            return parseInt(value) + 1;
-        });
-
-        Handlebars.registerHelper('winRate', function(value) {
-            return parseInt(value * 100) + '%';
-        });
 
         fetch('data/stats.json')
             .then(response => response.json())

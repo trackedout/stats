@@ -326,10 +326,11 @@ async function main() {
 
         // Use console arg to determine whether to run these
         if (process.argv.length > 2 && process.argv[2] === "--create-collections") {
-            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-01-18T15:00:00.000Z"), "playerStatsAllPhases");
+            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-02-01T15:00:00.000Z"), "playerStatsAllPhases"); // End date should be end of latest phase
             await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2024-12-21T15:00:00.000Z"), "playerStatsPhase1");
             await createPhaseStats(new Date("2024-12-21T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsPhase2");
             await createPhaseStats(new Date("2025-01-04T16:00:00.000Z"), new Date("2025-01-18T15:00:00.000Z"), "playerStatsPhase3");
+            await createPhaseStats(new Date("2025-01-18T16:00:00.000Z"), new Date("2025-02-01T15:00:00.000Z"), "playerStatsPhase4");
         }
 
         await writePlayerStatsToDisk();
@@ -389,11 +390,11 @@ async function saveTradeLogToDisk() {
         var phase = -1;
         if (trade.createdAt >= new Date("2024-12-07T16:00:00.000Z") && trade.createdAt < new Date("2024-12-21T15:00:00.000Z")) {
             phase = 1;
-        } else if (trade.createdAt < new Date("2025-01-04T14:30:00.000Z")) {
+        } else if (trade.createdAt < new Date("2025-01-04T15:00:00.000Z")) {
             phase = 2;
-        } else if (trade.createdAt < new Date("2025-01-18T14:30:00.000Z")) {
+        } else if (trade.createdAt < new Date("2025-01-18T15:00:00.000Z")) {
             phase = 3;
-        } else if (trade.createdAt >= new Date("2025-01-18T14:30:00.000Z")) {
+        } else if (trade.createdAt < new Date("2025-02-01T15:00:00.000Z")) {
             phase = 4;
         }
 

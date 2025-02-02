@@ -61,6 +61,18 @@
             --button-background: #333;
             --button-color: #fff;
         }
+
+        button:not(.active):after {
+            content: "";
+        }
+
+        button.active {
+            font-weight: bold;
+        }
+
+        button.active::after {
+            content: " (showing)";
+        }
     </style>
 </head>
 
@@ -71,10 +83,10 @@
         <div id="overview-banner" class="bg-gray-800 rounded-xl shadow-xl p-6 mb-6 text-center">
             <h2 class="text-2xl font-bold mb-3">Overview</h2>
             <script id="overview-template" type="text/x-handlebars-template">
-                <table class="table-auto w-full text-left">
+                <table class="table-auto w-full text-left overview">
                     <thead>
                         <tr>
-                            <th class="px-4 py-2">Phase</th>
+                            <th class="px-4 py-2">Phase (click to filter)</th>
                             <th class="px-4 py-2">Total Runs</th>
                             <th class="px-4 py-2">Practice Runs</th>
                             <th class="px-4 py-2">Competitive Runs</th>
@@ -83,14 +95,14 @@
                     <tbody>
                         {{#each phases}}
                         <tr>
-                            <td class="border px-4 py-2">Phase {{inc @index}}</td>
+                            <td class="border px-4 py-2"><button onclick="updatePhaseFilter({{inc @index}})">Phase {{ inc @index }}</button></td>
                             <td class="border px-4 py-2">{{total}}</td>
                             <td class="border px-4 py-2">{{practice}}</td>
                             <td class="border px-4 py-2">{{competitive}}</td>
                         </tr>
                         {{/each}}
                         <tr>
-                            <td class="border px-4 py-2 font-bold">All Phases</td>
+                            <td class="border px-4 py-2"><button onclick="updatePhaseFilter(0)">All Phases</button></td>
                             <td class="border px-4 py-2 font-bold">{{totalAllPhases}}</td>
                             <td class="border px-4 py-2 font-bold">{{totalAllPractice}}</td>
                             <td class="border px-4 py-2 font-bold">{{totalAllCompetitive}}</td>
@@ -99,20 +111,22 @@
                 </table>
             </script>
         </div>
+
+        <script id="filter-template" type="text/x-handlebars-template">
+            <input type="text" id="search" placeholder="Search players..." class="p-2 rounded-md bg-gray-800 text-white">
+            <h2 id="player-count" class="text-2xl font-bold mb-3">Showing ?? players</h2>
+            <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
+                <option value="name">Sort by Name</option>
+                <option value="totalRuns">Sort by Total Runs</option>
+                {{#each phases}}
+                <option value="winRate{{ inc @index }}">Sort by Win Rate (Phase {{ inc @index }})</option>
+                {{/each}}
+                {{#each phases}}
+                <option value="tomesSubmitted{{ inc @index }}">Sort by Tomes Submitted (Phase {{ inc @index }})</option>
+                {{/each}}
+            </select>
+        </script>
         <div id="filter-div" class="flex justify-between mb-5">
-            <script id="filter-template" type="text/x-handlebars-template">
-                <input type="text" id="search" placeholder="Search players..." class="p-2 rounded-md bg-gray-800 text-white">
-                <select id="sort" class="p-2 rounded-md bg-gray-800 text-white">
-                    <option value="name">Sort by Name</option>
-                    <option value="totalRuns">Sort by Total Runs</option>
-                    {{#each phases}}
-                    <option value="winRate{{ inc @index }}">Sort by Win Rate (Phase {{ inc @index }})</option>
-                    {{/each}}
-                    {{#each phases}}
-                    <option value="tomesSubmitted{{ inc @index }}">Sort by Tomes Submitted (Phase {{ inc @index }})</option>
-                    {{/each}}
-                </select>
-            </script>
         </div>
         <div id="players" class="grid gap-5"></div>
     </div>
@@ -122,18 +136,19 @@
         <div class="bg-gray-800 rounded-xl shadow-xl p-6 mb-6 transition transform">
             <h2 class="text-2xl font-bold mb-3">{{player}}</h2>
             <div class="stats grid gap-3 mt-4">
-                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg overall">
                     <h3 class="text-xl font-semibold">Overall</h3>
                     <p>Total Practice Runs: {{totalPracRuns}}</p>
                     <p>Total Competitive Runs: {{totalCompRuns}}</p>
                     <p>Total Runs (All Modes): {{totalRunsAllModes}}</p>
                 </div>
                 {{#each phases}}
-                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg phase phase-{{inc @index}}">
                     <h3 class="text-xl font-semibold">Phase {{inc @index}}</h3>
                     <p>Practice Runs: {{pracRuns}}</p>
                     <p>Competitive Runs: {{compRuns}}</p>
                     <p>Total Runs: {{totalRuns}}</p>
+                    <p>Tomes Submitted: {{tomesSubmitted}}</p>
                     <br/>
                     {{#if totalRuns}}
                     <button onclick="toggleDetails('phase{{inc @index}}-details-{{../player}}')">(click to show more details)</button>
@@ -206,6 +221,7 @@
         }
 
         let allDetailsVisible = false;
+        let currentPhaseFilter = 0;
 
         function toggleAllDetails() {
             allDetailsVisible = !allDetailsVisible;
@@ -220,6 +236,37 @@
             });
         }
 
+        function updatePhaseFilter(phase) {
+            currentPhaseFilter = phase;
+            localStorage.setItem('currentPhaseFilter', phase);
+            filterPlayers();
+            applyDetailsToggle();
+        }
+
+        function filterByPhase(phase) {
+            const allPhases = document.querySelectorAll('.phase');
+            const overallDivs = document.querySelectorAll('.overall');
+            const filterButtons = document.querySelectorAll('button[onclick^="updatePhaseFilter"]');
+
+            allPhases.forEach(element => {
+                if (phase === 0) {
+                    element.style.display = "block";
+                } else {
+                    element.style.display = element.classList.contains(`phase-${phase}`) ? "block" : "none";
+                }
+            });
+
+            overallDivs.forEach(element => {
+                element.style.display = phase === 0 ? "block" : "none";
+            });
+
+            filterButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.querySelector(`button[onclick="updatePhaseFilter(${phase})"]`).classList.add('active');
+        }
+
         const playersData = [];
 
         function renderPlayers(data) {
@@ -227,6 +274,10 @@
             const template = Handlebars.compile(templateSource);
             const html = template({ players: data });
             document.getElementById('players').innerHTML = html;
+        }
+
+        function renderFilteredPlayers() {
+            renderPlayers(filteredData);
         }
 
         function toggleExpand(button) {
@@ -257,7 +308,22 @@
                 filteredData.sort((a, b) => a.player.localeCompare(b.player));
             }
 
+            filteredData = filteredData.filter(player => {
+                if (currentPhaseFilter === 0) {
+                    return true;
+                }
+                return player.phases[currentPhaseFilter - 1].totalRuns > 0;
+            });
+
+            updateListTitle(filteredData.length);
             renderPlayers(filteredData);
+            filterByPhase(currentPhaseFilter);
+            applyDetailsToggle();
+        }
+
+        function updateListTitle(playerCount) {
+            const filteredSuffix = playerCount === playersData.length ? '' : '(filtered)';
+            document.getElementById('player-count').textContent = `Showing ${playerCount} ${playerCount === 1 ? 'player' : 'players'} ${filteredSuffix}`;
         }
 
         function updateFilterDiv(phases) {
@@ -289,14 +355,9 @@
 
             const context = {
                 phases: Object.keys(totals).map(key => totals[key]),
-                // phases: [
-                //     { total: totals.phase1.total, practice: totals.phase1.practice, competitive: totals.phase1.competitive },
-                //     { total: totals.phase2.total, practice: totals.phase2.practice, competitive: totals.phase2.competitive },
-                //     { total: totals.phase3.total, practice: totals.phase3.practice, competitive: totals.phase3.competitive }
-                // ],
                 totalAllPhases: Object.keys(totals).map(key => totals[key].total).reduce((a, b) => a + b, 0),
-                totalAllPractice: totals.phase1.practice + totals.phase2.practice + totals.phase3.practice,
-                totalAllCompetitive: totals.phase1.competitive + totals.phase2.competitive + totals.phase3.competitive
+                totalAllPractice: Object.keys(totals).map(key => totals[key].practice).reduce((a, b) => a + b, 0),
+                totalAllCompetitive: Object.keys(totals).map(key => totals[key].competitive).reduce((a, b) => a + b, 0)
             };
 
             const templateSource = document.getElementById('overview-template').innerHTML;
@@ -309,8 +370,8 @@
             .then(response => response.json())
             .then(data => {
                 playersData.push(...data);
-                renderPlayers(playersData);
                 updateOverviewBanner(playersData);
+                renderPlayers(playersData);
 
                 // Re-apply search and sort values
                 document.getElementById('search').value = localStorage.getItem('searchValue') || '';
@@ -320,17 +381,21 @@
                 // Re-apply toggle state
                 allDetailsVisible = localStorage.getItem('allDetailsVisible') === 'true';
                 applyDetailsToggle();
+
+                // Re-apply phase filter
+                currentPhaseFilter = parseInt(localStorage.getItem('currentPhaseFilter')) || 0;
+                updatePhaseFilter(currentPhaseFilter);
             })
             .catch(error => console.error('Error loading JSON:', error));
 
         // Save search and sort values on change
         document.getElementById('search').addEventListener('input', () => {
             localStorage.setItem('searchValue', document.getElementById('search').value);
-            applyDetailsToggle();
+            filterPlayers();
         });
         document.getElementById('sort').addEventListener('change', () => {
             localStorage.setItem('sortValue', document.getElementById('sort').value);
-            applyDetailsToggle();
+            filterPlayers();
         });
     </script>
 

@@ -90,6 +90,7 @@
                             <th class="px-4 py-2">Total Runs</th>
                             <th class="px-4 py-2">Practice Runs</th>
                             <th class="px-4 py-2">Competitive Runs</th>
+                            <th class="px-4 py-2">Number of Players</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,6 +100,7 @@
                             <td class="border px-4 py-2">{{total}}</td>
                             <td class="border px-4 py-2">{{practice}}</td>
                             <td class="border px-4 py-2">{{competitive}}</td>
+                            <td class="border px-4 py-2">{{players}}</td>
                         </tr>
                         {{/each}}
                         <tr>
@@ -106,6 +108,7 @@
                             <td class="border px-4 py-2 font-bold">{{totalAllPhases}}</td>
                             <td class="border px-4 py-2 font-bold">{{totalAllPractice}}</td>
                             <td class="border px-4 py-2 font-bold">{{totalAllCompetitive}}</td>
+                            <td class="border px-4 py-2 font-bold">{{totalAllPlayers}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -338,18 +341,20 @@
         document.getElementById('search').addEventListener('input', filterPlayers);
         document.getElementById('sort').addEventListener('change', filterPlayers);
 
-        function updateOverviewBanner(data) {
+        function updateOverviewBanner(players) {
             const totals = {};
 
             phases.forEach(phase => {
-                totals[`phase${phase}`] = { total: 0, practice: 0, competitive: 0 };
+                totals[`phase${phase}`] = { total: 0, practice: 0, competitive: 0, players: 0 };
             });
 
-            data.forEach(playerData => {
+            players.forEach(playerData => {
                 phases.forEach(phase => {
-                    totals[`phase${phase}`].total += playerData.phases[phase - 1].totalRuns;
-                    totals[`phase${phase}`].practice += playerData.phases[phase - 1].pracRuns;
-                    totals[`phase${phase}`].competitive += playerData.phases[phase - 1].compRuns;
+                    const phaseData = playerData.phases[phase - 1];
+                    totals[`phase${phase}`].total += phaseData.totalRuns;
+                    totals[`phase${phase}`].practice += phaseData.pracRuns;
+                    totals[`phase${phase}`].competitive += phaseData.compRuns;
+                    totals[`phase${phase}`].players += phaseData.totalRuns > 0 ? 1 : 0;
                 });
             });
 
@@ -357,7 +362,8 @@
                 phases: Object.keys(totals).map(key => totals[key]),
                 totalAllPhases: Object.keys(totals).map(key => totals[key].total).reduce((a, b) => a + b, 0),
                 totalAllPractice: Object.keys(totals).map(key => totals[key].practice).reduce((a, b) => a + b, 0),
-                totalAllCompetitive: Object.keys(totals).map(key => totals[key].competitive).reduce((a, b) => a + b, 0)
+                totalAllCompetitive: Object.keys(totals).map(key => totals[key].competitive).reduce((a, b) => a + b, 0),
+                totalAllPlayers: players.length,
             };
 
             const templateSource = document.getElementById('overview-template').innerHTML;

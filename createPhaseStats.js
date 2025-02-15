@@ -326,11 +326,14 @@ async function main() {
 
         // Use console arg to determine whether to run these
         if (process.argv.length > 2 && process.argv[2] === "--create-collections") {
-            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-02-01T15:00:00.000Z"), "playerStatsAllPhases"); // End date should be end of latest phase
+            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-02-15T15:00:00.000Z"), "playerStatsAllPhases"); // End date should be end of latest phase
             await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2024-12-21T15:00:00.000Z"), "playerStatsPhase1");
             await createPhaseStats(new Date("2024-12-21T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsPhase2");
             await createPhaseStats(new Date("2025-01-04T16:00:00.000Z"), new Date("2025-01-18T15:00:00.000Z"), "playerStatsPhase3");
             await createPhaseStats(new Date("2025-01-18T16:00:00.000Z"), new Date("2025-02-01T15:00:00.000Z"), "playerStatsPhase4");
+            await createPhaseStats(new Date("2025-02-01T16:00:00.000Z"), new Date("2025-02-15T15:00:00.000Z"), "playerStatsPhase5");
+            // await createPhaseStats(new Date("2025-02-15T16:00:00.000Z"), new Date("2025-03-01T15:00:00.000Z"), "playerStatsPhase6");
+            // await createPhaseStats(new Date("2025-03-01T16:00:00.000Z"), new Date("2025-03-15T15:00:00.000Z"), "playerStatsPhase7");
         }
 
         await writePlayerStatsToDisk();
@@ -396,6 +399,12 @@ async function saveTradeLogToDisk() {
             phase = 3;
         } else if (trade.createdAt < new Date("2025-02-01T15:00:00.000Z")) {
             phase = 4;
+        } else if (trade.createdAt < new Date("2025-02-15T15:00:00.000Z")) {
+            phase = 5;
+        } else if (trade.createdAt < new Date("2025-03-01T15:00:00.000Z")) {
+            phase = 6;
+        } else if (trade.createdAt < new Date("2025-03-15T15:00:00.000Z")) {
+            phase = 7;
         }
 
         if (phase === -1) {

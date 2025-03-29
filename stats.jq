@@ -64,16 +64,16 @@
 | (.[6] | map({ key: .player, value: . }) | from_entries) as $p3   # playerStatsPhase3.json
 | (.[7] | map({ key: .player, value: . }) | from_entries) as $p4   # playerStatsPhase4.json
 | (.[8] | map({ key: .player, value: . }) | from_entries) as $p5   # playerStatsPhase5.json
-# | (.[9] | map({ key: .player, value: . }) | from_entries) as $p6   # playerStatsPhase6.json
-# | (.[10] | map({ key: .player, value: . }) | from_entries) as $p7  # playerStatsPhase7.json
+| (.[9] | map({ key: .player, value: . }) | from_entries) as $p6   # playerStatsPhase6.json
+| (.[10] | map({ key: .player, value: . }) | from_entries) as $p7  # playerStatsPhase7.json
 | ({
   "1": $p1,
   "2": $p2,
   "3": $p3,
   "4": $p4,
-  "5": $p5
-  # "6": $p6,
-  # "7": $p7,
+  "5": $p5,
+  "6": $p6,
+  "7": $p7,
 }) as $phaseStats
 | (
   .[1]  # compShardsTradeLog.json

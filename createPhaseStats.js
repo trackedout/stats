@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 import fs from "fs";
 
-const uri = "mongodb://dunga-dunga:dunga-dunga@mongodb:27017/dunga-dunga";
+const uri = "mongodb://dunga-dunga:dunga-dunga@localhost:27020/dunga-dunga";
 const client = new MongoClient(uri);
 
 async function createPhaseStats(startDate, endDate, outputCollection) {
@@ -324,22 +324,19 @@ async function main() {
     try {
         await client.connect();
 
+        const startDate = new Date("2026-03-15T00:00:00.000Z"); // Start date of first phase
+
         // Use console arg to determine whether to run these
         if (process.argv.length > 2 && process.argv[2] === "--create-collections") {
-            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2025-03-29T15:00:00.000Z"), "playerStatsAllPhases"); // End date should be end of latest phase
-            await createPhaseStats(new Date("2024-12-07T16:00:00.000Z"), new Date("2024-12-21T15:00:00.000Z"), "playerStatsPhase1");
-            await createPhaseStats(new Date("2024-12-21T16:00:00.000Z"), new Date("2025-01-04T15:00:00.000Z"), "playerStatsPhase2");
-            await createPhaseStats(new Date("2025-01-04T16:00:00.000Z"), new Date("2025-01-18T15:00:00.000Z"), "playerStatsPhase3");
-            await createPhaseStats(new Date("2025-01-18T16:00:00.000Z"), new Date("2025-02-01T15:00:00.000Z"), "playerStatsPhase4");
-            await createPhaseStats(new Date("2025-02-01T16:00:00.000Z"), new Date("2025-02-15T15:00:00.000Z"), "playerStatsPhase5");
-            await createPhaseStats(new Date("2025-02-15T16:00:00.000Z"), new Date("2025-03-01T15:00:00.000Z"), "playerStatsPhase6");
-            await createPhaseStats(new Date("2025-03-01T16:00:00.000Z"), new Date("2025-03-29T15:00:00.000Z"), "playerStatsPhase7");
+            await createPhaseStats(startDate, new Date("2026-03-28T21:00:00.000Z"), "playerStatsAllPhases"); // End date should be end of latest phase
+            await createPhaseStats(startDate, new Date("2026-03-28T21:00:00.000Z"), "playerStatsPhase1");
+            // await createPhaseStats(new Date("2026-03-28T22:00:00.000Z"), new Date("2026-04-12T22:00:00.000Z"), "playerStatsPhase2");
         }
 
         await writePlayerStatsToDisk();
         await saveScoresToDisk();
         await saveEmbersToDisk();
-        await saveTradeLogToDisk();
+        await saveTradeLogToDisk(startDate);
 
         console.log("Phase stats collections created successfully");
     } catch (error) {
@@ -372,7 +369,7 @@ async function saveEmbersToDisk() {
     console.log(`Wrote ${scores.length} competitive escaped ember scores to disk`);
 }
 
-async function saveTradeLogToDisk() {
+async function saveTradeLogToDisk(startDate) {
     const db = client.db();
     // db.events.find({ name: 'trade-requested', 'metadata.target-scoreboard': 'do2.inventory.shards.competitive' }, { _id: 0, name: 1, player: 1, metadata: 1 }).sort({ createdAt: -1 }).toArray()
     var trades = await db.collection("events").find(
@@ -383,7 +380,7 @@ async function saveTradeLogToDisk() {
                 { "metadata.source-scoreboard": "competitive-do2.lifetime.escaped.tomes" }
             ],
             createdAt: {
-                $gte: new Date("2024-12-07T16:00:00.000Z"),
+                $gte: startDate,
             }
         },
         { _id: 0, name: 1, player: 1, metadata: 1, createdAt: 1 }
@@ -391,7 +388,7 @@ async function saveTradeLogToDisk() {
 
     trades = trades.map(trade => {
         var phase = -1;
-        if (trade.createdAt >= new Date("2024-12-07T16:00:00.000Z") && trade.createdAt < new Date("2024-12-21T15:00:00.000Z")) {
+        if (trade.createdAt >= new Date("2026-03-15T00:00:00.000Z") && trade.createdAt < new Date("2026-03-29T00:00:00.000Z")) {
             phase = 1;
         } else if (trade.createdAt < new Date("2025-01-04T15:00:00.000Z")) {
             phase = 2;

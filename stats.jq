@@ -60,20 +60,20 @@
 
 (.[0] | map(tostring)) as $phases
 | (.[4] | map({ key: .player, value: . }) | from_entries) as $p1   # playerStatsPhase1.json
-| (.[5] | map({ key: .player, value: . }) | from_entries) as $p2   # playerStatsPhase2.json
-| (.[6] | map({ key: .player, value: . }) | from_entries) as $p3   # playerStatsPhase3.json
-| (.[7] | map({ key: .player, value: . }) | from_entries) as $p4   # playerStatsPhase4.json
-| (.[8] | map({ key: .player, value: . }) | from_entries) as $p5   # playerStatsPhase5.json
-| (.[9] | map({ key: .player, value: . }) | from_entries) as $p6   # playerStatsPhase6.json
-| (.[10] | map({ key: .player, value: . }) | from_entries) as $p7  # playerStatsPhase7.json
+# | (.[5] | map({ key: .player, value: . }) | from_entries) as $p2   # playerStatsPhase2.json
+# | (.[6] | map({ key: .player, value: . }) | from_entries) as $p3   # playerStatsPhase3.json
+# | (.[7] | map({ key: .player, value: . }) | from_entries) as $p4   # playerStatsPhase4.json
+# | (.[8] | map({ key: .player, value: . }) | from_entries) as $p5   # playerStatsPhase5.json
+# | (.[9] | map({ key: .player, value: . }) | from_entries) as $p6   # playerStatsPhase6.json
+# | (.[10] | map({ key: .player, value: . }) | from_entries) as $p7  # playerStatsPhase7.json
 | ({
   "1": $p1,
-  "2": $p2,
-  "3": $p3,
-  "4": $p4,
-  "5": $p5,
-  "6": $p6,
-  "7": $p7,
+  # "2": $p2,
+  # "3": $p3,
+  # "4": $p4,
+  # "5": $p5,
+  # "6": $p6,
+  # "7": $p7,
 }) as $phaseStats
 | (
   .[1]  # compShardsTradeLog.json
@@ -107,10 +107,10 @@
       compRuns: ($playerPhaseStats.competitive?.total // 0),
       pracRuns: ($playerPhaseStats.practice?.total // 0),
       totalRuns: (($playerPhaseStats.competitive?.total // 0) + ($playerPhaseStats.practice?.total // 0)),
-      tomesSubmitted: ($tradeLogs[$player].phaseData[$phase]?.tomesSubmitted // 0),
-      shardsRefunded: (($tradeLogs[$player].phaseData[$phase]?.shardsAddedByOperator // 0) - ($tradeLogs[$player].phaseData[$phase]?.shardsAddedForPhase // 0)),
-      shardsAddedForPhase: ($tradeLogs[$player].phaseData[$phase]?.shardsAddedForPhase // 0),
-      shardsBought: ($tradeLogs[$player].shardsBought[$phase] // 0),
+      tomesSubmitted: ($tradeLogs[$player]?.phaseData[$phase]?.tomesSubmitted // 0),
+      shardsRefunded: (($tradeLogs[$player]?.phaseData[$phase]?.shardsAddedByOperator // 0) - ($tradeLogs[$player]?.phaseData[$phase]?.shardsAddedForPhase // 0)),
+      shardsAddedForPhase: ($tradeLogs[$player]?.phaseData[$phase]?.shardsAddedForPhase // 0),
+      shardsBought: ($tradeLogs[$player]?.shardsBought[$phase] // 0),
       compWinRate: (if ($playerPhaseStats.competitive?.wins > 0) then (($playerPhaseStats.competitive?.wins // 0) / ($playerPhaseStats.competitive?.total // 1)) else 0 end)
     })),
     totalPracRuns: 0, # just for field ordering
@@ -170,12 +170,13 @@
       (.totalEscapedEmbers + ((.totalEscapedEmbers / .totalCompRuns) * .remainingShards))
     end
 )
-
 | . as $allPlayerData
+
 # Get all potential ember values for active players
 # Find the min potential ember value cutoff using:
 # > ./join-stats.sh | jq 'map({ player, remainingShards, totalCompRuns, totalEscapedEmbers, potentialEmberValue, shardsToAllocatePreCap, shardsToAllocate } | select(.remainingShards == 0 and .potentialEmberValue > 0)) | sort_by(.potentialEmberValue) | reverse'
-| map(select(.totalCompRuns > 0 and .potentialEmberValue > 233) | .potentialEmberValue) as $allPlayerEmberValues
+# Default to min=0, max=200 if this data is not available (e.g. it's the first phase)
+| (map(select(.totalCompRuns > 0 and .potentialEmberValue > 233) | .potentialEmberValue) | if length == 0 then [0, 200] else . end) as $allPlayerEmberValues
 | $allPlayerData
 
 # Calculate ember allocations using =ROUND(17-(E{player}-MIN(E:E))/(MAX(E:E)-MIN(E:E))*8), where E is potentialEmberValue
@@ -186,6 +187,7 @@
     (17 - (.potentialEmberValue - ($allPlayerEmberValues | min)) / (($allPlayerEmberValues | max) - ($allPlayerEmberValues | min)) * 8)
   end
 )
+
 # Now cap the shards so that the player doesn't end up with more than 34 shards. formula is =MIN(34, remainingShards+shardsToAllocatePreCap)-remainingShards
 | map(
   .shardsToAllocate = ((([34, ((.remainingShards + .shardsToAllocatePreCap))] | min) - .remainingShards) | round)

@@ -162,7 +162,7 @@
 # Find the min potential ember value cutoff using:
 # > ./join-stats.sh | jq 'map({ player, remainingShards, totalCompRuns, totalEscapedEmbers, potentialEmberValue, shardsToAllocatePreCap, shardsToAllocate } | select(.remainingShards == 0 and .potentialEmberValue > 0)) | sort_by(.potentialEmberValue) | reverse'
 # Default to min=0, max=200 if this data is not available (e.g. it's the first phase)
-| (map(select(.totalCompRuns > 0 and .potentialEmberValue > 233) | .potentialEmberValue) | if length == 0 then [0, 200] else . end) as $allPlayerEmberValues
+| (map(select(.totalCompRuns > 0 and .potentialEmberValue > 50) | .potentialEmberValue) | if length == 0 then [0, 200] else . end) as $allPlayerEmberValues
 | $allPlayerData
 
 # Calculate ember allocations using =ROUND(17-(E{player}-MIN(E:E))/(MAX(E:E)-MIN(E:E))*8), where E is potentialEmberValue
@@ -176,7 +176,7 @@
 
 # Now cap the shards so that the player doesn't end up with more than 34 shards. formula is =MIN(34, remainingShards+shardsToAllocatePreCap)-remainingShards
 | map(
-  .shardsToAllocate = ((([34, ((.remainingShards + .shardsToAllocatePreCap))] | min) - .remainingShards) | round)
+  .shardsToAllocate = ((([22, ((.remainingShards + .shardsToAllocatePreCap))] | min) - .remainingShards) | round)
 )
 
 | map(del(.shardsAddedByOperator, .shardsAddedForPhase, .shardsWithoutRuns))

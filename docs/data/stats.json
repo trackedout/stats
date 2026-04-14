@@ -8,6 +8,34 @@
         "totalRuns": 0,
         "tomesSubmitted": 0,
         "compWinRate": 0
+      },
+      {
+        "total": 0,
+        "practice": {
+          "total": 0,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
@@ -43,6 +71,13 @@
         "compRuns": 0,
         "pracRuns": 1,
         "totalRuns": 1,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
         "compWinRate": 0
       }
     ],
@@ -80,11 +115,39 @@
         "pracRuns": 9,
         "totalRuns": 9,
         "compWinRate": 0
+      },
+      {
+        "total": 7,
+        "practice": {
+          "total": 7,
+          "easy": 3,
+          "medium": 4,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 6
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 7,
+        "totalRuns": 7,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 9,
+    "totalPracRuns": 16,
     "totalCompRuns": 0,
-    "totalRunsAllModes": 9
+    "totalRunsAllModes": 16
   },
   {
     "player": "BroIsCookin",
@@ -116,11 +179,61 @@
         "pracRuns": 15,
         "totalRuns": 15,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 15,
     "totalCompRuns": 0,
     "totalRunsAllModes": 15
+  },
+  {
+    "player": "CharlieCJK",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 1,
+        "pracRuns": 0,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 0,
+    "totalCompRuns": 1,
+    "totalRunsAllModes": 1
   },
   {
     "player": "Cirrcinzo",
@@ -151,6 +264,13 @@
         "compRuns": 0,
         "pracRuns": 4,
         "totalRuns": 4,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
         "compWinRate": 0
       }
     ],
@@ -188,11 +308,39 @@
         "pracRuns": 24,
         "totalRuns": 34,
         "compWinRate": 0.4
+      },
+      {
+        "total": 154,
+        "practice": {
+          "total": 141,
+          "easy": 2,
+          "medium": 2,
+          "hard": 7,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 125,
+          "losses": 16
+        },
+        "competitive": {
+          "total": 13,
+          "easy": 0,
+          "medium": 11,
+          "hard": 3,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 5,
+          "losses": 8
+        },
+        "tomesSubmitted": 2,
+        "compRuns": 13,
+        "pracRuns": 141,
+        "totalRuns": 154,
+        "compWinRate": 0.38461538461538464
       }
     ],
-    "totalPracRuns": 24,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 34
+    "totalPracRuns": 165,
+    "totalCompRuns": 23,
+    "totalRunsAllModes": 188
   },
   {
     "player": "Deepflea18",
@@ -224,6 +372,13 @@
         "pracRuns": 5,
         "totalRuns": 5,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 5,
@@ -233,6 +388,13 @@
   {
     "player": "DiamondVortexX",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -275,11 +437,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.6
+      },
+      {
+        "total": 13,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 13,
+          "easy": 0,
+          "medium": 5,
+          "hard": 9,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 9,
+          "losses": 4
+        },
+        "tomesSubmitted": 8,
+        "compRuns": 13,
+        "pracRuns": 0,
+        "totalRuns": 13,
+        "compWinRate": 0.6923076923076923
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 23,
+    "totalRunsAllModes": 23
   },
   {
     "player": "ErnieCarries",
@@ -311,11 +501,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.5
+      },
+      {
+        "total": 15,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 15,
+          "easy": 0,
+          "medium": 11,
+          "hard": 4,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 7,
+          "losses": 8
+        },
+        "tomesSubmitted": 2,
+        "compRuns": 15,
+        "pracRuns": 0,
+        "totalRuns": 15,
+        "compWinRate": 0.4666666666666667
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 25,
+    "totalRunsAllModes": 25
   },
   {
     "player": "Ethereal_Ember_",
@@ -347,11 +565,61 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.4
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
     "totalCompRuns": 10,
     "totalRunsAllModes": 10
+  },
+  {
+    "player": "EzraO99",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 1,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 1,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 1
   },
   {
     "player": "FatedforNewTroy",
@@ -383,6 +651,13 @@
         "pracRuns": 61,
         "totalRuns": 62,
         "compWinRate": 1
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 61,
@@ -398,11 +673,82 @@
         "totalRuns": 0,
         "tomesSubmitted": 0,
         "compWinRate": 0
+      },
+      {
+        "total": 2,
+        "practice": {
+          "total": 2,
+          "easy": 3,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 2
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 2,
+        "totalRuns": 2,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 0,
+    "totalPracRuns": 2,
     "totalCompRuns": 0,
-    "totalRunsAllModes": 0
+    "totalRunsAllModes": 2
+  },
+  {
+    "player": "FlamingRhino45",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 2,
+        "practice": {
+          "total": 1,
+          "easy": 0,
+          "medium": 1,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 1,
+          "easy": 0,
+          "medium": 1,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 1,
+        "pracRuns": 1,
+        "totalRuns": 2,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 1,
+    "totalCompRuns": 1,
+    "totalRunsAllModes": 2
   },
   {
     "player": "FruitFalls",
@@ -434,11 +780,39 @@
         "pracRuns": 3,
         "totalRuns": 14,
         "compWinRate": 0.45454545454545453
+      },
+      {
+        "total": 14,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 14,
+          "easy": 0,
+          "medium": 0,
+          "hard": 9,
+          "deadly": 5,
+          "deepFrost": 0,
+          "wins": 8,
+          "losses": 6
+        },
+        "tomesSubmitted": 6,
+        "compRuns": 14,
+        "pracRuns": 0,
+        "totalRuns": 14,
+        "compWinRate": 0.5714285714285714
       }
     ],
     "totalPracRuns": 3,
-    "totalCompRuns": 11,
-    "totalRunsAllModes": 14
+    "totalCompRuns": 25,
+    "totalRunsAllModes": 28
   },
   {
     "player": "FrustratedCPU",
@@ -470,6 +844,13 @@
         "pracRuns": 0,
         "totalRuns": 5,
         "compWinRate": 0.6
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
@@ -506,6 +887,13 @@
         "pracRuns": 2,
         "totalRuns": 12,
         "compWinRate": 0.3
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 2,
@@ -542,6 +930,13 @@
         "pracRuns": 0,
         "totalRuns": 8,
         "compWinRate": 0.25
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
@@ -549,8 +944,58 @@
     "totalRunsAllModes": 8
   },
   {
+    "player": "IT4MAR",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 1,
+        "pracRuns": 0,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 0,
+    "totalCompRuns": 1,
+    "totalRunsAllModes": 1
+  },
+  {
     "player": "Iceberg3436",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -593,11 +1038,82 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.6
+      },
+      {
+        "total": 8,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 8,
+          "easy": 0,
+          "medium": 4,
+          "hard": 4,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 2,
+          "losses": 6
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 8,
+        "pracRuns": 0,
+        "totalRuns": 8,
+        "compWinRate": 0.25
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 18,
+    "totalRunsAllModes": 18
+  },
+  {
+    "player": "Invasious",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 3,
+        "practice": {
+          "total": 3,
+          "easy": 3,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 2
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 3,
+        "totalRuns": 3,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 3,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 3
   },
   {
     "player": "JTRex1",
@@ -629,11 +1145,61 @@
         "pracRuns": 1,
         "totalRuns": 1,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 1,
     "totalCompRuns": 0,
     "totalRunsAllModes": 1
+  },
+  {
+    "player": "Jake_O",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 9,
+        "practice": {
+          "total": 9,
+          "easy": 9,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 5,
+          "losses": 4
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 9,
+        "totalRuns": 9,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 9,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 9
   },
   {
     "player": "Jaymac720",
@@ -665,6 +1231,13 @@
         "pracRuns": 3,
         "totalRuns": 4,
         "compWinRate": 1
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 3,
@@ -701,11 +1274,61 @@
         "pracRuns": 2,
         "totalRuns": 2,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 2,
     "totalCompRuns": 0,
     "totalRunsAllModes": 2
+  },
+  {
+    "player": "KingBrainrot",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 7,
+        "practice": {
+          "total": 7,
+          "easy": 7,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 4,
+          "losses": 3
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 7,
+        "totalRuns": 7,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 7,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 7
   },
   {
     "player": "KnightMiner77",
@@ -737,11 +1360,39 @@
         "pracRuns": 8,
         "totalRuns": 8,
         "compWinRate": 0
+      },
+      {
+        "total": 4,
+        "practice": {
+          "total": 4,
+          "easy": 0,
+          "medium": 1,
+          "hard": 3,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 4
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 4,
+        "totalRuns": 4,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 8,
+    "totalPracRuns": 12,
     "totalCompRuns": 0,
-    "totalRunsAllModes": 8
+    "totalRunsAllModes": 12
   },
   {
     "player": "Kraxy19",
@@ -773,11 +1424,39 @@
         "pracRuns": 7,
         "totalRuns": 17,
         "compWinRate": 0.7
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 1,
+          "easy": 0,
+          "medium": 0,
+          "hard": 1,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 1,
+        "totalRuns": 1,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 7,
+    "totalPracRuns": 8,
     "totalCompRuns": 10,
-    "totalRunsAllModes": 17
+    "totalRunsAllModes": 18
   },
   {
     "player": "KuzcoTheDog",
@@ -809,6 +1488,13 @@
         "pracRuns": 5,
         "totalRuns": 10,
         "compWinRate": 0.6
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 5,
@@ -818,6 +1504,13 @@
   {
     "player": "Lanrick2002",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -860,6 +1553,13 @@
         "pracRuns": 1,
         "totalRuns": 3,
         "compWinRate": 0.5
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 1,
@@ -896,11 +1596,39 @@
         "pracRuns": 30,
         "totalRuns": 40,
         "compWinRate": 0.4
+      },
+      {
+        "total": 36,
+        "practice": {
+          "total": 22,
+          "easy": 4,
+          "medium": 1,
+          "hard": 20,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 4,
+          "losses": 18
+        },
+        "competitive": {
+          "total": 14,
+          "easy": 0,
+          "medium": 5,
+          "hard": 10,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 3,
+          "losses": 11
+        },
+        "tomesSubmitted": 3,
+        "compRuns": 14,
+        "pracRuns": 22,
+        "totalRuns": 36,
+        "compWinRate": 0.21428571428571427
       }
     ],
-    "totalPracRuns": 30,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 40
+    "totalPracRuns": 52,
+    "totalCompRuns": 24,
+    "totalRunsAllModes": 76
   },
   {
     "player": "Moosiq",
@@ -932,11 +1660,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.8
+      },
+      {
+        "total": 3,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 3,
+          "easy": 0,
+          "medium": 2,
+          "hard": 1,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 2,
+          "losses": 1
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 3,
+        "pracRuns": 0,
+        "totalRuns": 3,
+        "compWinRate": 0.6666666666666666
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 13,
+    "totalRunsAllModes": 13
   },
   {
     "player": "MrFireflyer",
@@ -968,11 +1724,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.8
+      },
+      {
+        "total": 13,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 13,
+          "easy": 0,
+          "medium": 7,
+          "hard": 6,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 8,
+          "losses": 5
+        },
+        "tomesSubmitted": 6,
+        "compRuns": 13,
+        "pracRuns": 0,
+        "totalRuns": 13,
+        "compWinRate": 0.6153846153846154
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 23,
+    "totalRunsAllModes": 23
   },
   {
     "player": "MythicalCucumber",
@@ -1004,11 +1788,82 @@
         "pracRuns": 4,
         "totalRuns": 4,
         "compWinRate": 0
+      },
+      {
+        "total": 6,
+        "practice": {
+          "total": 6,
+          "easy": 0,
+          "medium": 2,
+          "hard": 5,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 2,
+          "losses": 4
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 6,
+        "totalRuns": 6,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 4,
+    "totalPracRuns": 10,
     "totalCompRuns": 0,
-    "totalRunsAllModes": 4
+    "totalRunsAllModes": 10
+  },
+  {
+    "player": "Navigar",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 35,
+        "practice": {
+          "total": 35,
+          "easy": 0,
+          "medium": 19,
+          "hard": 13,
+          "deadly": 3,
+          "deepFrost": 0,
+          "wins": 10,
+          "losses": 25
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 35,
+        "totalRuns": 35,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 35,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 35
   },
   {
     "player": "NethereseHat",
@@ -1040,11 +1895,40 @@
         "pracRuns": 22,
         "totalRuns": 22,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 22,
     "totalCompRuns": 0,
     "totalRunsAllModes": 22
+  },
+  {
+    "player": "Noah0440",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 0,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 0
   },
   {
     "player": "OpaJones",
@@ -1076,6 +1960,13 @@
         "pracRuns": 10,
         "totalRuns": 20,
         "compWinRate": 0.6
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 10,
@@ -1112,11 +2003,39 @@
         "pracRuns": 2,
         "totalRuns": 12,
         "compWinRate": 0.5
+      },
+      {
+        "total": 8,
+        "practice": {
+          "total": 1,
+          "easy": 0,
+          "medium": 1,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 7,
+          "easy": 1,
+          "medium": 6,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 2,
+          "losses": 5
+        },
+        "tomesSubmitted": 1,
+        "compRuns": 7,
+        "pracRuns": 1,
+        "totalRuns": 8,
+        "compWinRate": 0.2857142857142857
       }
     ],
-    "totalPracRuns": 2,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 12
+    "totalPracRuns": 3,
+    "totalCompRuns": 17,
+    "totalRunsAllModes": 20
   },
   {
     "player": "R_M2468",
@@ -1148,11 +2067,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.6
+      },
+      {
+        "total": 13,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 13,
+          "easy": 0,
+          "medium": 10,
+          "hard": 3,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 7,
+          "losses": 6
+        },
+        "tomesSubmitted": 3,
+        "compRuns": 13,
+        "pracRuns": 0,
+        "totalRuns": 13,
+        "compWinRate": 0.5384615384615384
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 23,
+    "totalRunsAllModes": 23
   },
   {
     "player": "Rawrdardian",
@@ -1184,11 +2131,39 @@
         "pracRuns": 8,
         "totalRuns": 18,
         "compWinRate": 0.7
+      },
+      {
+        "total": 20,
+        "practice": {
+          "total": 5,
+          "easy": 0,
+          "medium": 0,
+          "hard": 2,
+          "deadly": 3,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 4
+        },
+        "competitive": {
+          "total": 15,
+          "easy": 0,
+          "medium": 12,
+          "hard": 3,
+          "deadly": 2,
+          "deepFrost": 0,
+          "wins": 10,
+          "losses": 5
+        },
+        "tomesSubmitted": 6,
+        "compRuns": 15,
+        "pracRuns": 5,
+        "totalRuns": 20,
+        "compWinRate": 0.6666666666666666
       }
     ],
-    "totalPracRuns": 8,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 18
+    "totalPracRuns": 13,
+    "totalCompRuns": 25,
+    "totalRunsAllModes": 38
   },
   {
     "player": "RealPokeplaya",
@@ -1220,6 +2195,13 @@
         "pracRuns": 8,
         "totalRuns": 8,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 8,
@@ -1235,6 +2217,13 @@
         "totalRuns": 0,
         "tomesSubmitted": 0,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
@@ -1242,8 +2231,58 @@
     "totalRunsAllModes": 0
   },
   {
+    "player": "SIRTACOOOOO",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 6,
+        "practice": {
+          "total": 6,
+          "easy": 6,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 5
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 6,
+        "totalRuns": 6,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 6,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 6
+  },
+  {
     "player": "Sculk_Sensor",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -1286,11 +2325,39 @@
         "pracRuns": 2,
         "totalRuns": 12,
         "compWinRate": 0.7
+      },
+      {
+        "total": 12,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 12,
+          "easy": 0,
+          "medium": 12,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 6,
+          "losses": 6
+        },
+        "tomesSubmitted": 2,
+        "compRuns": 12,
+        "pracRuns": 0,
+        "totalRuns": 12,
+        "compWinRate": 0.5
       }
     ],
     "totalPracRuns": 2,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 12
+    "totalCompRuns": 22,
+    "totalRunsAllModes": 24
   },
   {
     "player": "Shorju",
@@ -1322,11 +2389,39 @@
         "pracRuns": 34,
         "totalRuns": 44,
         "compWinRate": 0.5
+      },
+      {
+        "total": 25,
+        "practice": {
+          "total": 10,
+          "easy": 1,
+          "medium": 2,
+          "hard": 7,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 2,
+          "losses": 8
+        },
+        "competitive": {
+          "total": 15,
+          "easy": 9,
+          "medium": 2,
+          "hard": 4,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 8,
+          "losses": 7
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 15,
+        "pracRuns": 10,
+        "totalRuns": 25,
+        "compWinRate": 0.5333333333333333
       }
     ],
-    "totalPracRuns": 34,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 44
+    "totalPracRuns": 44,
+    "totalCompRuns": 25,
+    "totalRunsAllModes": 69
   },
   {
     "player": "SilverPhantom07",
@@ -1358,11 +2453,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.8
+      },
+      {
+        "total": 14,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 14,
+          "easy": 1,
+          "medium": 13,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 5,
+          "losses": 9
+        },
+        "tomesSubmitted": 1,
+        "compRuns": 14,
+        "pracRuns": 0,
+        "totalRuns": 14,
+        "compWinRate": 0.35714285714285715
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 24,
+    "totalRunsAllModes": 24
   },
   {
     "player": "Sleepy_Auri",
@@ -1394,6 +2517,13 @@
         "pracRuns": 1,
         "totalRuns": 11,
         "compWinRate": 0.4
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 1,
@@ -1429,6 +2559,13 @@
         "compRuns": 0,
         "pracRuns": 10,
         "totalRuns": 10,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
         "compWinRate": 0
       }
     ],
@@ -1466,6 +2603,13 @@
         "pracRuns": 4,
         "totalRuns": 5,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 4,
@@ -1502,11 +2646,39 @@
         "pracRuns": 0,
         "totalRuns": 11,
         "compWinRate": 0.7272727272727273
+      },
+      {
+        "total": 16,
+        "practice": {
+          "total": 3,
+          "easy": 0,
+          "medium": 2,
+          "hard": 1,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 2
+        },
+        "competitive": {
+          "total": 13,
+          "easy": 0,
+          "medium": 13,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 9,
+          "losses": 4
+        },
+        "tomesSubmitted": 6,
+        "compRuns": 13,
+        "pracRuns": 3,
+        "totalRuns": 16,
+        "compWinRate": 0.6923076923076923
       }
     ],
-    "totalPracRuns": 0,
-    "totalCompRuns": 11,
-    "totalRunsAllModes": 11
+    "totalPracRuns": 3,
+    "totalCompRuns": 24,
+    "totalRunsAllModes": 27
   },
   {
     "player": "TangerineTrip",
@@ -1538,15 +2710,50 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.5
+      },
+      {
+        "total": 18,
+        "practice": {
+          "total": 2,
+          "easy": 0,
+          "medium": 0,
+          "hard": 1,
+          "deadly": 1,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 16,
+          "easy": 1,
+          "medium": 1,
+          "hard": 14,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 6,
+          "losses": 10
+        },
+        "tomesSubmitted": 2,
+        "compRuns": 16,
+        "pracRuns": 2,
+        "totalRuns": 18,
+        "compWinRate": 0.375
       }
     ],
-    "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalPracRuns": 2,
+    "totalCompRuns": 26,
+    "totalRunsAllModes": 28
   },
   {
     "player": "TempestJayKo",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -1589,11 +2796,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.7
+      },
+      {
+        "total": 8,
+        "practice": {
+          "total": 1,
+          "easy": 0,
+          "medium": 0,
+          "hard": 1,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 7,
+          "easy": 3,
+          "medium": 4,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 4,
+          "losses": 3
+        },
+        "tomesSubmitted": 1,
+        "compRuns": 7,
+        "pracRuns": 1,
+        "totalRuns": 8,
+        "compWinRate": 0.5714285714285714
       }
     ],
-    "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalPracRuns": 1,
+    "totalCompRuns": 17,
+    "totalRunsAllModes": 18
   },
   {
     "player": "The_Kings_Wit_",
@@ -1625,11 +2860,147 @@
         "pracRuns": 4,
         "totalRuns": 8,
         "compWinRate": 0.75
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 4,
     "totalCompRuns": 4,
     "totalRunsAllModes": 8
+  },
+  {
+    "player": "ThirteenZebras",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 1,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 1,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 1
+  },
+  {
+    "player": "TimmyTheToast",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 1,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 1,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 1
+  },
+  {
+    "player": "Toastoni",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 2,
+        "practice": {
+          "total": 2,
+          "easy": 3,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 2
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 2,
+        "totalRuns": 2,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 2,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 2
   },
   {
     "player": "Tostero",
@@ -1661,11 +3032,39 @@
         "pracRuns": 24,
         "totalRuns": 34,
         "compWinRate": 0.8
+      },
+      {
+        "total": 13,
+        "practice": {
+          "total": 2,
+          "easy": 0,
+          "medium": 1,
+          "hard": 1,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 11,
+          "easy": 2,
+          "medium": 9,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 6,
+          "losses": 5
+        },
+        "tomesSubmitted": 2,
+        "compRuns": 11,
+        "pracRuns": 2,
+        "totalRuns": 13,
+        "compWinRate": 0.5454545454545454
       }
     ],
-    "totalPracRuns": 24,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 34
+    "totalPracRuns": 26,
+    "totalCompRuns": 21,
+    "totalRunsAllModes": 47
   },
   {
     "player": "VincentTheVifth",
@@ -1697,6 +3096,13 @@
         "pracRuns": 0,
         "totalRuns": 6,
         "compWinRate": 0.6666666666666666
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
@@ -1733,11 +3139,39 @@
         "pracRuns": 6,
         "totalRuns": 15,
         "compWinRate": 0.3333333333333333
+      },
+      {
+        "total": 17,
+        "practice": {
+          "total": 8,
+          "easy": 0,
+          "medium": 5,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 8
+        },
+        "competitive": {
+          "total": 9,
+          "easy": 9,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 5,
+          "losses": 4
+        },
+        "tomesSubmitted": 1,
+        "compRuns": 9,
+        "pracRuns": 8,
+        "totalRuns": 17,
+        "compWinRate": 0.5555555555555556
       }
     ],
-    "totalPracRuns": 6,
-    "totalCompRuns": 9,
-    "totalRunsAllModes": 15
+    "totalPracRuns": 14,
+    "totalCompRuns": 18,
+    "totalRunsAllModes": 32
   },
   {
     "player": "Wumpleberries",
@@ -1769,15 +3203,50 @@
         "pracRuns": 46,
         "totalRuns": 56,
         "compWinRate": 0.4
+      },
+      {
+        "total": 22,
+        "practice": {
+          "total": 7,
+          "easy": 1,
+          "medium": 3,
+          "hard": 3,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 3,
+          "losses": 4
+        },
+        "competitive": {
+          "total": 15,
+          "easy": 6,
+          "medium": 9,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 8,
+          "losses": 7
+        },
+        "tomesSubmitted": 2,
+        "compRuns": 15,
+        "pracRuns": 7,
+        "totalRuns": 22,
+        "compWinRate": 0.5333333333333333
       }
     ],
-    "totalPracRuns": 46,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 56
+    "totalPracRuns": 53,
+    "totalCompRuns": 25,
+    "totalRunsAllModes": 78
   },
   {
     "player": "YellowDuckKing4",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -1789,6 +3258,71 @@
     "totalPracRuns": 0,
     "totalCompRuns": 0,
     "totalRunsAllModes": 0
+  },
+  {
+    "player": "_JustCrazy_UA",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 0,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 0
+  },
+  {
+    "player": "ahmed4363",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 2,
+        "practice": {
+          "total": 2,
+          "easy": 1,
+          "medium": 1,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 2,
+        "totalRuns": 2,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 2,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 2
   },
   {
     "player": "brimborium",
@@ -1820,11 +3354,39 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.6
+      },
+      {
+        "total": 14,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 14,
+          "easy": 9,
+          "medium": 5,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 6,
+          "losses": 8
+        },
+        "tomesSubmitted": 1,
+        "compRuns": 14,
+        "pracRuns": 0,
+        "totalRuns": 14,
+        "compWinRate": 0.42857142857142855
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 24,
+    "totalRunsAllModes": 24
   },
   {
     "player": "busta8",
@@ -1856,11 +3418,39 @@
         "pracRuns": 36,
         "totalRuns": 36,
         "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 1,
+          "easy": 0,
+          "medium": 0,
+          "hard": 1,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 1,
+        "totalRuns": 1,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 36,
+    "totalPracRuns": 37,
     "totalCompRuns": 0,
-    "totalRunsAllModes": 36
+    "totalRunsAllModes": 37
   },
   {
     "player": "codacorgi",
@@ -1892,15 +3482,93 @@
         "pracRuns": 13,
         "totalRuns": 13,
         "compWinRate": 0
+      },
+      {
+        "total": 10,
+        "practice": {
+          "total": 10,
+          "easy": 0,
+          "medium": 10,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 9
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 10,
+        "totalRuns": 10,
+        "compWinRate": 0
       }
     ],
-    "totalPracRuns": 13,
+    "totalPracRuns": 23,
     "totalCompRuns": 0,
-    "totalRunsAllModes": 13
+    "totalRunsAllModes": 23
+  },
+  {
+    "player": "epicgug",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 2,
+        "practice": {
+          "total": 2,
+          "easy": 0,
+          "medium": 2,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 2
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 2,
+        "totalRuns": 2,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 2,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 2
   },
   {
     "player": "feyuwu",
     "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
       {
         "compRuns": 0,
         "pracRuns": 0,
@@ -1922,11 +3590,61 @@
         "totalRuns": 0,
         "tomesSubmitted": 0,
         "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
       }
     ],
     "totalPracRuns": 0,
     "totalCompRuns": 0,
     "totalRunsAllModes": 0
+  },
+  {
+    "player": "kenny_zero",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 16,
+        "practice": {
+          "total": 6,
+          "easy": 1,
+          "medium": 5,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 1,
+          "losses": 5
+        },
+        "competitive": {
+          "total": 10,
+          "easy": 2,
+          "medium": 8,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 2,
+          "losses": 8
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 10,
+        "pracRuns": 6,
+        "totalRuns": 16,
+        "compWinRate": 0.2
+      }
+    ],
+    "totalPracRuns": 6,
+    "totalCompRuns": 10,
+    "totalRunsAllModes": 16
   },
   {
     "player": "pepperoni365",
@@ -1958,11 +3676,125 @@
         "pracRuns": 0,
         "totalRuns": 10,
         "compWinRate": 0.8
+      },
+      {
+        "total": 7,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 7,
+          "easy": 6,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 1,
+          "deepFrost": 0,
+          "wins": 6,
+          "losses": 1
+        },
+        "tomesSubmitted": 1,
+        "compRuns": 7,
+        "pracRuns": 0,
+        "totalRuns": 7,
+        "compWinRate": 0.8571428571428571
       }
     ],
     "totalPracRuns": 0,
-    "totalCompRuns": 10,
-    "totalRunsAllModes": 10
+    "totalCompRuns": 17,
+    "totalRunsAllModes": 17
+  },
+  {
+    "player": "sh4rts",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "competitive": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 0,
+        "pracRuns": 1,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 1,
+    "totalCompRuns": 0,
+    "totalRunsAllModes": 1
+  },
+  {
+    "player": "shirosan2",
+    "phases": [
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
+        "compWinRate": 0
+      },
+      {
+        "total": 1,
+        "practice": {
+          "total": 0,
+          "easy": 0,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "competitive": {
+          "total": 1,
+          "easy": 1,
+          "medium": 0,
+          "hard": 0,
+          "deadly": 0,
+          "deepFrost": 0,
+          "wins": 0,
+          "losses": 1
+        },
+        "tomesSubmitted": 0,
+        "compRuns": 1,
+        "pracRuns": 0,
+        "totalRuns": 1,
+        "compWinRate": 0
+      }
+    ],
+    "totalPracRuns": 0,
+    "totalCompRuns": 1,
+    "totalRunsAllModes": 1
   },
   {
     "player": "werewolf_50",
@@ -1993,6 +3825,13 @@
         "compRuns": 0,
         "pracRuns": 2,
         "totalRuns": 2,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
         "compWinRate": 0
       }
     ],
@@ -2029,6 +3868,13 @@
         "compRuns": 1,
         "pracRuns": 0,
         "totalRuns": 1,
+        "compWinRate": 0
+      },
+      {
+        "compRuns": 0,
+        "pracRuns": 0,
+        "totalRuns": 0,
+        "tomesSubmitted": 0,
         "compWinRate": 0
       }
     ],

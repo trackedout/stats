@@ -1,6 +1,9 @@
 import { MongoClient } from "mongodb";
 import fs from "fs";
 
+const phases = JSON.parse(fs.readFileSync("phases.json", "utf8")).filter(phase => phase.state == "COMPLETED");
+console.log("Completed phases:", phases);
+
 const uri = "mongodb://dunga-dunga:dunga-dunga@localhost:27020/dunga-dunga";
 const client = new MongoClient(uri);
 
@@ -324,13 +327,15 @@ async function main() {
     try {
         await client.connect();
 
-        const startDate = new Date("2026-03-15T00:00:00.000Z"); // Start date of first phase
+        const startDate = new Date(phases[0].start);
+        const endDate = new Date(phases.at(-1).end);
 
         // Use console arg to determine whether to run these
         if (process.argv.length > 2 && process.argv[2] === "--create-collections") {
-            await createPhaseStats(startDate, new Date("2026-03-28T21:00:00.000Z"), "playerStatsAllPhases"); // End date should be end of latest phase
-            await createPhaseStats(startDate, new Date("2026-03-28T21:00:00.000Z"), "playerStatsPhase1");
-            // await createPhaseStats(new Date("2026-03-28T22:00:00.000Z"), new Date("2026-04-12T22:00:00.000Z"), "playerStatsPhase2");
+            await createPhaseStats(startDate, endDate, "playerStatsAllPhases");
+            for (const { phase, start, end } of phases) {
+                await createPhaseStats(new Date(start), new Date(end), `playerStatsPhase${phase}`);
+            }
         }
 
         await writePlayerStatsToDisk();
@@ -387,31 +392,16 @@ async function saveTradeLogToDisk(startDate) {
     ).sort({ createdAt: -1 }).toArray();
 
     trades = trades.map(trade => {
-        var phase = -1;
-        if (trade.createdAt >= new Date("2026-03-15T00:00:00.000Z") && trade.createdAt < new Date("2026-03-29T00:00:00.000Z")) {
-            phase = 1;
-        } else if (trade.createdAt < new Date("2025-01-04T15:00:00.000Z")) {
-            phase = 2;
-        } else if (trade.createdAt < new Date("2025-01-18T15:00:00.000Z")) {
-            phase = 3;
-        } else if (trade.createdAt < new Date("2025-02-01T15:00:00.000Z")) {
-            phase = 4;
-        } else if (trade.createdAt < new Date("2025-02-15T15:00:00.000Z")) {
-            phase = 5;
-        } else if (trade.createdAt < new Date("2025-03-01T15:00:00.000Z")) {
-            phase = 6;
-        } else if (trade.createdAt < new Date("2025-03-29T15:00:00.000Z")) {
-            phase = 7;
-        }
+        const found = phases.find(({ start, end }) =>
+            trade.createdAt >= new Date(start) && trade.createdAt < new Date(end)
+        );
+        const phase = found ? found.phase : -1;
 
         if (phase === -1) {
             console.log("Invalid phase", trade);
         }
 
-        return {
-            ...trade,
-            phase,
-        }
+        return { ...trade, phase };
     });
 
     fs.writeFileSync("output/compShardsTradeLog.json", JSON.stringify(trades, null, 4));

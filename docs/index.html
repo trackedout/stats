@@ -335,11 +335,7 @@
             document.getElementById('filter-div').innerHTML = filterHtml;
         }
 
-        const phases = [1];
-        updateFilterDiv(phases);
-
-        document.getElementById('search').addEventListener('input', filterPlayers);
-        document.getElementById('sort').addEventListener('change', filterPlayers);
+        let phases = [];
 
         function updateOverviewBanner(players) {
             const totals = {};
@@ -372,9 +368,20 @@
             document.getElementById('overview-banner').innerHTML = html;
         }
 
-        fetch('data/stats.json')
-            .then(response => response.json())
-            .then(data => {
+        Promise.all([
+            fetch('data/phases.json').then(r => r.json()),
+            fetch('data/stats.json').then(r => r.json())
+        ]).then(([phasesData, data]) => {
+                phases = phasesData.map(x => x.phase);
+                updateFilterDiv(phases);
+                document.getElementById('search').addEventListener('input', () => {
+                    localStorage.setItem('searchValue', document.getElementById('search').value);
+                    filterPlayers();
+                });
+                document.getElementById('sort').addEventListener('change', () => {
+                    localStorage.setItem('sortValue', document.getElementById('sort').value);
+                    filterPlayers();
+                });
                 playersData.push(...data);
                 updateOverviewBanner(playersData);
                 renderPlayers(playersData);
@@ -393,16 +400,6 @@
                 updatePhaseFilter(currentPhaseFilter);
             })
             .catch(error => console.error('Error loading JSON:', error));
-
-        // Save search and sort values on change
-        document.getElementById('search').addEventListener('input', () => {
-            localStorage.setItem('searchValue', document.getElementById('search').value);
-            filterPlayers();
-        });
-        document.getElementById('sort').addEventListener('change', () => {
-            localStorage.setItem('sortValue', document.getElementById('sort').value);
-            filterPlayers();
-        });
     </script>
 
 </body>

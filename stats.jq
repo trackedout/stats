@@ -85,7 +85,7 @@
   | add) as $tradeLogs
 | (.[2] | map({ key: .player, value: .value }) | from_entries) as $allPlayers   # compShardsAllPlayers.json
 | (.[3] | map({ key: .player, value: .value }) | from_entries) as $emberScores  # compEmbersAllPlayers.json
-| ($allPlayers | keys | unique) as $players
+| (($allPlayers | keys | unique) - $excludedPlayers) as $players
 | $players | map(. as $player | {
     player: $player,
     tradeLog: ($tradeLogs[$player] // {}),

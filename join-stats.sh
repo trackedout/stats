@@ -7,7 +7,7 @@ for p in $(echo "$phases" | jq -r '.[]'); do
   phase_files+=("./output/playerStatsPhase${p}.json")
 done
 
-jq -s -f stats.jq \
+jq -s -f stats.jq --argjson excludedPlayers '["jaek95"]' \
   <(echo "$phases") \
   ./output/compShardsTradeLog.json \
   ./output/compShardsAllPlayers.json \

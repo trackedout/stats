@@ -398,11 +398,12 @@ async function saveTradeLogToDisk(startDate) {
         const phase = found ? found.phase : -1;
 
         if (phase === -1) {
-            console.log("Invalid phase", trade);
+            console.log("Invalid phase on trade (will be ignored)", trade);
+            return null;
         }
 
         return { ...trade, phase };
-    });
+    }).filter(trade => !!trade);
 
     fs.writeFileSync("output/compShardsTradeLog.json", JSON.stringify(trades, null, 4));
     console.log(`Wrote ${trades.length} trade logs to disk`);

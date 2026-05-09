@@ -29,6 +29,7 @@ rm output/*.json && node createPhaseStats.js --create-collections
 cd davybones
 
 export KUBECONTEXT=ash
+just api-port-forward # API
 just update-phase-configs
 ```
 

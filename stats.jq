@@ -170,7 +170,7 @@
   .shardsToAllocatePreCap = if (.totalCompRuns == 0) then
     0
   else
-    (17 - (.potentialEmberValue - ($allPlayerEmberValues | min)) / (($allPlayerEmberValues | max) - ($allPlayerEmberValues | min)) * 8)
+    (17 - (.potentialEmberValue - ($allPlayerEmberValues | min)) / (($allPlayerEmberValues | max) - ($allPlayerEmberValues | min)) * 10)
   end
 )
 

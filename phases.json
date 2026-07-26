@@ -6,6 +6,6 @@
   { "phase": 5, "state": "COMPLETED",   "start": "2026-05-09T22:00:00Z", "end": "2026-06-06T21:00:00Z" },
   { "phase": 6, "state": "COMPLETED",   "start": "2026-06-07T00:00:00Z", "end": "2026-06-21T00:45:00Z" },
   { "phase": 7, "state": "COMPLETED",   "start": "2026-06-21T01:30:00Z", "end": "2026-07-04T22:00:00Z" },
-  { "phase": 8, "state": "ACTIVE",      "start": "2026-07-04T22:30:00Z", "end": "2026-07-18T23:00:00Z" },
-  { "phase": 9, "state": "NOT_STARTED", "start": "2026-07-18T22:00:00Z", "end": "2026-08-01T23:00:00Z" }
+  { "phase": 8, "state": "COMPLETED",   "start": "2026-07-04T22:30:00Z", "end": "2026-07-26T05:20:00Z" },
+  { "phase": 9, "state": "ACTIVE",      "start": "2026-07-26T05:30:00Z", "end": "2026-08-08T23:00:00Z" }
 ]
